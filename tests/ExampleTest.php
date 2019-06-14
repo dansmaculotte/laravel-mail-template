@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\Skeleton\Tests;
+namespace DansMaCulotte\MailTemplate\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-class ExampleTest extends TestCase
+class MailTemplateTest extends TestCase
 {
     /** @test */
     public function true_is_true()

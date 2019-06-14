@@ -1,35 +1,37 @@
 {
-    "name": "spatie/:package_name",
-    "description": ":package_description",
+    "name": "dansmaculotte/laravel-mail-template",
+    "description": "A mail template driver to send emails with",
     "keywords": [
-        "spatie",
-        ":package_name"
+        "mail",
+        "template",
+        "laravel-mail-template"
     ],
-    "homepage": "https://github.com/spatie/:package_name",
+    "homepage": "https://github.com/dansmaculotte/laravel-mail-template",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": "https://spatie.be",
-            "role": "Developer"
+            "name": "Gaël Reyrol",
+            "email": "gael@dansmaculotte.fr"
         }
     ],
     "require": {
-        "php": "^7.1"
+        "php": "^7.2",
+        "illuminate/notifications": "^5.8",
+        "illuminate/support": "^5.8"
     },
     "require-dev": {
         "larapack/dd": "^1.0",
+        "orchestra/testbench": "^3.8",
         "phpunit/phpunit": "^7.0"
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src"
+            "DansMaCulotte\\MailTemplate\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Tests\\": "tests"
+            "DansMaCulotte\\MailTemplate\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -43,10 +45,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\Skeleton\\SkeletonServiceProvider"
+                "DansMaCulotte\\MailTemplate\\MailTemplateServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Spatie\\Skeleton\\SkeletonFacade"
+                "MailTemplate": "DansMaCulotte\\MailTemplate\\MailTemplateFacade"
             }
         }
     }
