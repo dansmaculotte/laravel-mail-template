@@ -2,13 +2,14 @@
 
 namespace DansMaCulotte\MailTemplate;
 
-use Illuminate\Notifications\Notification;
-
 class MailTemplateChannel
 {
-    public function send($notifiable, Notification $notification)
+    public function send($notifiable, MailTemplateNotification $notification)
     {
         $message = $notification->toMailTemplate($notifiable);
-        return $message->sendMessage();
+
+        if ($message instanceof MailTemplate) {
+            return $message->send();
+        }
     }
 }

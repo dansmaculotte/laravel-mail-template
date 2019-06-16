@@ -2,6 +2,9 @@
 
 namespace DansMaCulotte\MailTemplate;
 
+use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
+use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
+use DansMaCulotte\MailTemplate\Drivers\NullDriver;
 use Illuminate\Support\ServiceProvider;
 
 class MailTemplateServiceProvider extends ServiceProvider
@@ -11,11 +14,11 @@ class MailTemplateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('mailtemplate.php'),
-            ], 'config');
-        }
+        $this->mergeConfigFrom(__DIR__.'/../config/mailtemplate.php', 'mailtemplate');
+
+        $this->publishes([
+            __DIR__.'/../config/mailtemplate.php' => config_path('mailtemplate.php'),
+        ]);
     }
 
     /**
@@ -23,6 +26,29 @@ class MailTemplateServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'mailtemplate');
+        $this->app->singleton(MailTemplate::class, function () {
+
+            $driver = config('mailtemplate.driver', null);
+            if (is_null($driver) || $driver === 'log') {
+                return new NullDriver($driver === 'log');
+            }
+
+            switch ($driver) {
+                case 'mailjet':
+                    $driver = new MailjetDriver(config('mailtemplate.mailjet'));
+                    break;
+                case 'mandrill':
+                    $driver = new MandrillDriver(config('mailtemplate.mandrill'));
+                    break;
+                default:
+                    break;
+            }
+
+            return new MailTemplate($driver);
+        });
+
+        $this->app->make(MailTemplateChannel::class);
+
+        $this->app->alias(MailTemplate::class, 'mailtemplate');
     }
 }

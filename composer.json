@@ -17,7 +17,9 @@
     "require": {
         "php": "^7.2",
         "illuminate/notifications": "^5.8",
-        "illuminate/support": "^5.8"
+        "illuminate/support": "^5.8",
+        "mailjet/mailjet-apiv3-php": "^1.4",
+        "mandrill/mandrill": "^1.0"
     },
     "require-dev": {
         "larapack/dd": "^1.0",
