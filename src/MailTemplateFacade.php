@@ -16,6 +16,6 @@ class MailTemplateFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'mailtemplate';
+        return 'mail-template';
     }
 }

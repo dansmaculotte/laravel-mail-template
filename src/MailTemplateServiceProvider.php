@@ -5,6 +5,7 @@ namespace DansMaCulotte\MailTemplate;
 use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
 use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
 use DansMaCulotte\MailTemplate\Drivers\NullDriver;
+use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use Illuminate\Support\ServiceProvider;
 
 class MailTemplateServiceProvider extends ServiceProvider
@@ -14,10 +15,10 @@ class MailTemplateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/mailtemplate.php', 'mailtemplate');
+        $this->mergeConfigFrom(__DIR__.'/../config/mail-template.php', 'mail-template');
 
         $this->publishes([
-            __DIR__.'/../config/mailtemplate.php' => config_path('mailtemplate.php'),
+            __DIR__.'/../config/mail-template.php' => config_path('mail-template.php'),
         ]);
     }
 
@@ -28,27 +29,26 @@ class MailTemplateServiceProvider extends ServiceProvider
     {
         $this->app->singleton(MailTemplate::class, function () {
 
-            $driver = config('mailtemplate.driver', null);
+            $driver = config('mail-template.driver', null);
             if (is_null($driver) || $driver === 'log') {
                 return new NullDriver($driver === 'log');
             }
 
             switch ($driver) {
                 case 'mailjet':
-                    $driver = new MailjetDriver(config('mailtemplate.mailjet'));
+                    $driver = new MailjetDriver(config('mail-template.mailjet'));
                     break;
                 case 'mandrill':
-                    $driver = new MandrillDriver(config('mailtemplate.mandrill'));
+                    $driver = new MandrillDriver(config('mail-template.mandrill'));
                     break;
                 default:
+                    throw InvalidConfiguration::driverNotFound($driver);
                     break;
             }
 
             return new MailTemplate($driver);
         });
 
-        $this->app->make(MailTemplateChannel::class);
-
-        $this->app->alias(MailTemplate::class, 'mailtemplate');
+        $this->app->alias(MailTemplate::class, 'mail-template');
     }
 }

@@ -15,4 +15,9 @@ class InvalidConfiguration extends Exception
     {
         return new static("Credentials provided for `{$name}` are invalid.");
     }
+
+    public static function driverNotFound($name)
+    {
+        return new static("Driver {$name} not found.");
+    }
 }

@@ -5,7 +5,6 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/dansmaculotte/laravel-mail-template.svg?style=flat-square)](https://scrutinizer-ci.com/g/dansmaculotte/laravel-mail-template)
 [![Total Downloads](https://img.shields.io/packagist/dt/dansmaculotte/laravel-mail-template.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-mail-template)
 
-
 This package allows you to send emails via mail service providers template's engine.
 
 ## Installation
@@ -16,16 +15,83 @@ You can install the package via composer:
 composer require dansmaculotte/laravel-mail-template
 ```
 
+The package will automatically register itself.
+
+To publish the config file to config/mail-template.php run:
+
+```php
+php artisan vendor:publish --provider="DansMaCulotte\MailTemplate\MailTemplateServiceProvider"
+```
+
 ## Usage
 
-``` php
-$mailTemplate = new DansMaCulotte\MailTemplate();
-echo $mailTemplate->send('Hello, Spatie!');
+Configure your mail template driver and credentials in `config/mail-template.php`.
+
+### Basic
+
+After you've installed the package and filled in the values in the config-file working with this package will be a breeze.
+All the following examples use the facade. Don't forget to import it at the top of your file.
+
+```php
+use MailTemplate;
+```
+
+```php
+$mailTemplate = MailTemplate::setSubject('Welcome aboard')
+    ->setFrom(config('mail.name), config('mail.email'))
+    ->setRecipient('Recipient Name', 'recipient@email.com')
+    ->setLanguage('en')
+    ->setTemplate('welcome-aboard')
+    ->setVariables([
+        'first_name' => 'Recipient',
+    ]);
+    
+$response = $mailTemplate->send();
+```
+
+### Via Notification
+
+Create a new notification via php artisan:
+
+```bash
+php artisan make:notification WelcomeNotification
+```
+
+Change `extends` to `MailTemplateNotificaiton`:
+
+```php
+use DansMaCulotte\MailTemplate\MailTemplateNotification;
+
+class WelcomeNotification extends MailTemplateNotification
+```
+
+Implement `toMailTemplateMethod` and prepare your template:
+
+```php
+public function toMailTemplate($notifiable)
+{
+    return MailTemplate::prepare(
+        'Welcome aboard',
+        [
+            'name' => config('mail.from.name'),
+            'email' => config('mail.from.email'),
+        ],
+        [
+            'name' => $notifiable->full_name,
+            'email' => $notifiable->email,
+        ],
+        $notifiable->preferredLocale(),
+        'welcome-aboard',
+        [
+            'first_name' => $notifiable->first_name
+        ]
+    );
+}
 ```
 
 ### Testing
 
-``` bash
+```bash
 composer test
 ```
 
