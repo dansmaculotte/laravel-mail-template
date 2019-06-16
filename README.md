@@ -66,12 +66,19 @@ Create a new notification via php artisan:
 php artisan make:notification WelcomeNotification
 ```
 
-Change `extends` to `MailTemplateNotificaiton`:
+Set `via` to `MailTemplateChannel`:
 
 ```php
-use DansMaCulotte\MailTemplate\MailTemplateNotification;
-
-class WelcomeNotification extends MailTemplateNotification
+/**
+ * Get the notification's delivery channels.
+ *
+ * @param  mixed  $notifiable
+ * @return array
+ */
+public function via($notifiable)
+{
+    return [MailTemplateChannel::class];
+}
 ```
 
 Implement `toMailTemplate` method and prepare your template:

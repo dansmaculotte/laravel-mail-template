@@ -6,7 +6,7 @@ use DansMaCulotte\MailTemplate\Drivers\Driver;
 class MailTemplate
 {
     /** @var Driver|null */
-    private $driver = null;
+    public $driver = null;
 
     /**
      * MailTemplate constructor.

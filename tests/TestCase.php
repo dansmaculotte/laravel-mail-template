@@ -20,6 +20,7 @@ class TestCase extends Orchestra
             MailTemplateServiceProvider::class,
         ];
     }
+
     /**
      * @param \Illuminate\Foundation\Application $app
      */
