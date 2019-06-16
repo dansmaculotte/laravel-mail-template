@@ -38,7 +38,7 @@ use MailTemplate;
 
 ```php
 $mailTemplate = MailTemplate::setSubject('Welcome aboard')
-    ->setFrom(config('mail.name), config('mail.email'))
+    ->setFrom(config('mail.name'), config('mail.email'))
     ->setRecipient('Recipient Name', 'recipient@email.com')
     ->setLanguage('en')
     ->setTemplate('welcome-aboard')
@@ -65,7 +65,7 @@ use DansMaCulotte\MailTemplate\MailTemplateNotification;
 class WelcomeNotification extends MailTemplateNotification
 ```
 
-Implement `toMailTemplateMethod` and prepare your template:
+Implement `toMailTemplate` method and prepare your template:
 
 ```php
 public function toMailTemplate($notifiable)
@@ -88,6 +88,9 @@ public function toMailTemplate($notifiable)
     );
 }
 ```
+
+And that's it.
+When `MailTemplateChannel` will receive the notification it will automatically call `send` method from `MailTemplate` facade.
 
 ### Testing
 
