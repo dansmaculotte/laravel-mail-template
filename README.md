@@ -7,6 +7,13 @@
 
 This package allows you to send emails via mail service providers template's engine.
 
+Actually there is only 2 drivers available:
+
+  - [Mandrill](https://mandrillapp.com/api/docs/)
+  - [Mailjet](https://dev.mailjet.com/guides/#about-the-mailjet-api)
+  
+There is also and `log` and `null` driver for testing purpose.
+
 ## Installation
 
 You can install the package via composer:
@@ -48,6 +55,8 @@ $mailTemplate = MailTemplate::setSubject('Welcome aboard')
     
 $response = $mailTemplate->send();
 ```
+
+If an error occurs in the send method it will throw a `SendError::responseError` exception.
 
 ### Via Notification
 
