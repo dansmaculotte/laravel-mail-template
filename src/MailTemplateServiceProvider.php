@@ -49,6 +49,6 @@ class MailTemplateServiceProvider extends ServiceProvider
             return new MailTemplate($driver);
         });
 
-        $this->app->alias(MailTemplateFacade::class, 'mail-template');
+        $this->app->alias(MailTemplate::class, 'mail-template');
     }
 }

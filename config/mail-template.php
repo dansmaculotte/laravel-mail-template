@@ -10,7 +10,7 @@ return [
     | Supported: "mailjet", "mandrill", "log", null
     |
     */
-    'driver' => env('MAILTEMPLATE_DRIVER', null),
+    'driver' => env('MAIL_TEMPLATE_DRIVER', null),
 
     'mailjet' => [
         'key' => env('MJ_APIKEY_PUBLIC'),

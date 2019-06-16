@@ -21,6 +21,6 @@ class SendError extends Exception
      */
     public static function responseError(string $name, $code = 0, Throwable $previous = null)
     {
-        return new static("Send method for `{$name}` returned an error.", $previous);
+        return new static("Send method for `{$name}` returned an error.", $code, $previous);
     }
 }

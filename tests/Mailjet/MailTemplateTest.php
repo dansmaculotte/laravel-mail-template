@@ -91,8 +91,18 @@ class MailTemplateTest extends TestCase
     {
         $this->mailTemplate->setRecipient('test_recipient_name', 'test_recipient_email');
 
-        $this->assertTrue($this->driver->message['To']['Name'] === 'test_recipient_name');
-        $this->assertTrue($this->driver->message['To']['Email'] === 'test_recipient_email');
+        $varRecipient = null;
+        $recipients = $this->driver->message['To'];
+
+        foreach ($recipients as $recipient) {
+            if ($recipient['Name'] === 'test_recipient_name') {
+                $varRecipient = $recipient;
+            }
+        }
+
+        $this->assertNotNull($varRecipient);
+        $this->assertTrue($varRecipient['Name'] === 'test_recipient_name');
+        $this->assertTrue($varRecipient['Email'] === 'test_recipient_email');
     }
 
     /** @test */
@@ -106,9 +116,9 @@ class MailTemplateTest extends TestCase
     /** @test */
     public function should_set_template()
     {
-        $this->mailTemplate->setTemplate('test_template');
+        $this->mailTemplate->setTemplate('1654984165');
 
-        $this->assertTrue($this->driver->message['TemplateID'] === 'test_template');
+        $this->assertTrue($this->driver->message['TemplateID'] === intval('1654984165'));
         $this->assertTrue($this->driver->message['TemplateLanguage'] === true);
     }
 

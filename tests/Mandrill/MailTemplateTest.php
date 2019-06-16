@@ -85,9 +85,19 @@ class MailTemplateTest extends TestCase
     {
         $this->mailTemplate->setRecipient('test_recipient_name', 'test_recipient_email');
 
-        $this->assertTrue($this->driver->message['to']['name'] === 'test_recipient_name');
-        $this->assertTrue($this->driver->message['to']['email'] === 'test_recipient_email');
-        $this->assertTrue($this->driver->message['to']['type'] === 'to');
+        $varRecipient = null;
+        $recipients = $this->driver->message['to'];
+
+        foreach ($recipients as $recipient) {
+            if ($recipient['name'] === 'test_recipient_name') {
+                $varRecipient = $recipient;
+            }
+        }
+
+        $this->assertNotNull($varRecipient);
+        $this->assertTrue($varRecipient['name'] === 'test_recipient_name');
+        $this->assertTrue($varRecipient['email'] === 'test_recipient_email');
+        $this->assertTrue($varRecipient['type'] === 'to');
     }
 
     /** @test */

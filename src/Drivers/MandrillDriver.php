@@ -79,7 +79,7 @@ class MandrillDriver implements Driver
      */
     public function setRecipient(string $name, string $email): Driver
     {
-        $this->message['to'] = [
+        $this->message['to'][] = [
             'name' => $name,
             'email' => $email,
             'type' => 'to',
@@ -133,7 +133,7 @@ class MandrillDriver implements Driver
                 $this->message
             );
         } catch (Mandrill_Error $exception) {
-            throw SendError::responseError('mandrill', $exception);
+            throw SendError::responseError('mandrill',0, $exception);
         }
 
         return $response;

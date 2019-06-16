@@ -2,6 +2,7 @@
 
 namespace DansMaCulotte\MailTemplate;
 
+use DansMaCulotte\MailTemplate\Drivers\Driver;
 use Illuminate\Notifications\Notification;
 
 class MailTemplateChannel
@@ -17,8 +18,8 @@ class MailTemplateChannel
     {
         $message = $notification->toMailTemplate($notifiable);
 
-        if ($message instanceof MailTemplate) {
-            return $message->send();
+        if ($message instanceof Driver) {
+            $message->send();
         }
     }
 }

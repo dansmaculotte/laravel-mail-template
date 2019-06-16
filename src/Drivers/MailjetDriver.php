@@ -38,7 +38,9 @@ class MailjetDriver implements Driver
             throw InvalidConfiguration::invalidCredential('mailjet', 'secret');
         }
 
-        $this->mailjet = new Client($config['key'], $config['secret']);
+        $this->client = new Client($config['key'], $config['secret'], true, [
+            'version' => 'v3.1',
+        ]);
     }
 
     /**
@@ -60,7 +62,7 @@ class MailjetDriver implements Driver
      */
     public function setTemplate(string $template): Driver
     {
-        $this->message['TemplateID'] = $template;
+        $this->message['TemplateID'] = intval($template);
         $this->message['TemplateLanguage'] = true;
 
         return $this;
@@ -84,8 +86,10 @@ class MailjetDriver implements Driver
      */
     public function setRecipient(string $name, string $email): Driver
     {
-        $this->message['To']['Name'] = $name;
-        $this->message['To']['Email'] = $email;
+        $this->message['To'][] = [
+            'Name' => $name,
+            'Email' => $email,
+        ];
 
         return $this;
     }
