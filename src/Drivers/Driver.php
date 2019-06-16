@@ -3,7 +3,10 @@
 
 namespace DansMaCulotte\MailTemplate\Drivers;
 
-
+/**
+ * Interface Driver
+ * @package DansMaCulotte\MailTemplate\Drivers
+ */
 interface Driver
 {
     /**

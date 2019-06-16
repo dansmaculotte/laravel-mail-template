@@ -4,6 +4,10 @@ namespace DansMaCulotte\MailTemplate\Drivers;
 
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Class NullDriver
+ * @package DansMaCulotte\MailTemplate\Drivers
+ */
 class NullDriver
 {
     /**
@@ -15,7 +19,7 @@ class NullDriver
      * NullDriver constructor.
      * @param bool $logCalls
      */
-    public function __construct($logCalls = false)
+    public function __construct(bool $logCalls = false)
     {
         $this->logCalls = $logCalls;
     }

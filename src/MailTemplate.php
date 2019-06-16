@@ -44,6 +44,6 @@ class MailTemplate
      */
     public function __call($name, $arguments)
     {
-        return $this->driver->$name($arguments);
+        return $this->driver->$name(...$arguments);
     }
 }

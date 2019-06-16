@@ -6,11 +6,16 @@ use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use Mailjet\Client;
 use Mailjet\Resources;
+use Mailjet\Response;
 
+/**
+ * Class MailjetDriver
+ * @package DansMaCulotte\MailTemplate\Drivers
+ */
 class MailjetDriver implements Driver
 {
     /** @var Client|null  */
-    private $mailjet = null;
+    public $client = null;
 
     /** @var array */
     public $body = [];
@@ -18,10 +23,19 @@ class MailjetDriver implements Driver
     /** @var array */
     public $message = [];
 
+    /**
+     * MailjetDriver constructor.
+     * @param $config
+     * @throws InvalidConfiguration
+     */
     public function __construct($config)
     {
-        if (!$config['key'] || !$config['secret']) {
-            throw InvalidConfiguration::invalidCredentials('mailjet');
+        if (!isset($config['key'])) {
+            throw InvalidConfiguration::invalidCredential('mailjet', 'key');
+        }
+
+        if (!isset($config['secret'])) {
+            throw InvalidConfiguration::invalidCredential('mailjet', 'secret');
         }
 
         $this->mailjet = new Client($config['key'], $config['secret']);
@@ -106,7 +120,7 @@ class MailjetDriver implements Driver
      */
     public function send(): array
     {
-        $response = $this->mailjet->post(Resources::$Email, [
+        $response = $this->client->post(Resources::$Email, [
             'body' => array_merge($this->body, [
                 'Messages' => [
                     $this->message,

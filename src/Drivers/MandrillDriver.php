@@ -7,10 +7,14 @@ use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use Mandrill;
 use Mandrill_Error;
 
+/**
+ * Class MandrillDriver
+ * @package DansMaCulotte\MailTemplate\Drivers
+ */
 class MandrillDriver implements Driver
 {
     /** @var Mandrill|null  */
-    private $mandrill = null;
+    public $client = null;
 
     /** @var array */
     public $body = [];
@@ -21,14 +25,16 @@ class MandrillDriver implements Driver
     /**
      * MandrillDriver constructor.
      * @param $config
+     * @throws InvalidConfiguration
+     * @throws Mandrill_Error
      */
     public function __construct($config)
     {
-        try {
-            $this->mandrill = new Mandrill($config['secret']);
-        } catch (Mandrill_Error $exception) {
-            throw InvalidConfiguration::invalidCredentials('mandrill');
+        if (!isset($config['secret'])) {
+            throw InvalidConfiguration::invalidCredential('mandrill', 'secret');
         }
+
+        $this->client = new Mandrill($config['secret']);
     }
 
     /**
@@ -89,7 +95,7 @@ class MandrillDriver implements Driver
     public function setVariables(array $variables): Driver
     {
         foreach ($variables as $variableKey => $variableValue) {
-            $this->message['global_merge_vars'] = [
+            $this->message['global_merge_vars'][] = [
                 'name' => strtoupper($variableKey),
                 'content' => $variableValue,
             ];
@@ -104,7 +110,7 @@ class MandrillDriver implements Driver
      */
     public function setLanguage(string $language): Driver
     {
-        $this->message['global_merge_vars'] = [
+        $this->message['global_merge_vars'][] = [
             'name' => 'MC_LANGUAGE',
             'content' => $language,
         ];
@@ -121,13 +127,13 @@ class MandrillDriver implements Driver
     {
         $response = [];
         try {
-            $response = $this->mandrill->messages->sendTemplate(
+            $response = $this->client->messages->sendTemplate(
                 $this->body['template'],
                 [],
                 $this->message
             );
         } catch (Mandrill_Error $exception) {
-            throw SendError::responseError('mandrill');
+            throw SendError::responseError('mandrill', $exception);
         }
 
         return $response;
