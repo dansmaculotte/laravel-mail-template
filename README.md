@@ -3,8 +3,14 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dansmaculotte/laravel-mail-template.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-mail-template)
 [![Total Downloads](https://img.shields.io/packagist/dt/dansmaculotte/laravel-mail-template.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-mail-template)
 
-
 This package allows you to send emails via mail service providers template's engine.
+
+Actually there is only 2 drivers available:
+
+  - [Mandrill](https://mandrillapp.com/api/docs/)
+  - [Mailjet](https://dev.mailjet.com/guides/#about-the-mailjet-api)
+  
+There is also and `log` and `null` driver for testing purpose.
 
 ## Installation
 
@@ -14,16 +20,95 @@ You can install the package via composer:
 composer require dansmaculotte/laravel-mail-template
 ```
 
+The package will automatically register itself.
+
+To publish the config file to config/mail-template.php run:
+
+```php
+php artisan vendor:publish --provider="DansMaCulotte\MailTemplate\MailTemplateServiceProvider"
+```
+
 ## Usage
 
-``` php
-$mailTemplate = new DansMaCulotte\MailTemplate();
-echo $mailTemplate->send('Hello, Spatie!');
+Configure your mail template driver and credentials in `config/mail-template.php`.
+
+### Basic
+
+After you've installed the package and filled in the values in the config-file working with this package will be a breeze.
+All the following examples use the facade. Don't forget to import it at the top of your file.
+
+```php
+use MailTemplate;
 ```
+
+```php
+$mailTemplate = MailTemplate::setSubject('Welcome aboard')
+    ->setFrom(config('mail.name'), config('mail.email'))
+    ->setRecipient('Recipient Name', 'recipient@email.com')
+    ->setLanguage('en')
+    ->setTemplate('welcome-aboard')
+    ->setVariables([
+        'first_name' => 'Recipient',
+    ]);
+    
+$response = $mailTemplate->send();
+```
+
+If an error occurs in the send method it will throw a `SendError::responseError` exception.
+
+### Via Notification
+
+Create a new notification via php artisan:
+
+```bash
+php artisan make:notification WelcomeNotification
+```
+
+Set `via` to `MailTemplateChannel`:
+
+```php
+/**
+ * Get the notification's delivery channels.
+ *
+ * @param  mixed  $notifiable
+ * @return array
+ */
+public function via($notifiable)
+{
+    return [MailTemplateChannel::class];
+}
+```
+
+Implement `toMailTemplate` method and prepare your template:
+
+```php
+public function toMailTemplate($notifiable)
+{
+    return MailTemplate::prepare(
+        'Welcome aboard',
+        [
+            'name' => config('mail.from.name'),
+            'email' => config('mail.from.email'),
+        ],
+        [
+            'name' => $notifiable->full_name,
+            'email' => $notifiable->email,
+        ],
+        $notifiable->preferredLocale(),
+        'welcome-aboard',
+        [
+            'first_name' => $notifiable->first_name
+        ]
+    );
+}
+```
+
+And that's it.
+When `MailTemplateChannel` will receive the notification it will automatically call `send` method from `MailTemplate` facade.
 
 ### Testing
 
-``` bash
+```bash
 composer test
 ```
 

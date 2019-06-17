@@ -5,7 +5,7 @@ namespace DansMaCulotte\MailTemplate;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \DansMaCulotte\MailTemplate\MailTemplateClass
+ * @see \DansMaCulotte\MailTemplate\MailTemplate
  */
 class MailTemplateFacade extends Facade
 {
@@ -16,6 +16,6 @@ class MailTemplateFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'mailtemplate';
+        return 'mail-template';
     }
 }
