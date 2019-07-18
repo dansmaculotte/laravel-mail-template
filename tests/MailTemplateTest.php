@@ -17,14 +17,16 @@ class MailTemplateTest extends TestCase
     /** @var MailTemplate */
     protected $mailTemplate;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->driver = Mockery::mock(Driver::class);
 
         $this->mailTemplate = new MailTemplate($this->driver);
+
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         if ($container = Mockery::getContainer()) {

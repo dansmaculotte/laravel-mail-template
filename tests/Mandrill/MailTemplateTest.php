@@ -29,7 +29,7 @@ class MailTemplateTest extends TestCase
     /** @var \DansMaCulotte\MailTemplate\MailTemplate */
     protected $mailTemplate;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = Mockery::mock(Mandrill::class)->makePartial();
 
@@ -43,7 +43,7 @@ class MailTemplateTest extends TestCase
         $this->mailTemplate = new MailTemplate($this->driver);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         if ($container = Mockery::getContainer()) {
