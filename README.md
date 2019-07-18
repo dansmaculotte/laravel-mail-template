@@ -1,8 +1,6 @@
-# A mail template driver to send emails with
+# A laravel mail template driver to send emails with
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dansmaculotte/laravel-mail-template.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-mail-template)
-[![Build Status](https://img.shields.io/travis/dansmaculotte/laravel-mail-template/master.svg?style=flat-square)](https://travis-ci.org/dansmaculotte/laravel-mail-template)
-[![Quality Score](https://img.shields.io/scrutinizer/g/dansmaculotte/laravel-mail-template.svg?style=flat-square)](https://scrutinizer-ci.com/g/dansmaculotte/laravel-mail-template)
 [![Total Downloads](https://img.shields.io/packagist/dt/dansmaculotte/laravel-mail-template.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-mail-template)
 
 This package allows you to send emails via mail service providers template's engine.
