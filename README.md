@@ -1,18 +1,25 @@
 # A laravel mail template driver to send emails with
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dansmaculotte/laravel-mail-template.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-mail-template)
-[![Total Downloads](https://img.shields.io/packagist/dt/dansmaculotte/laravel-mail-template.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-mail-template)
+[![Latest Version](https://img.shields.io/packagist/v/DansMaCulotte/laravel-mail-template.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-mail-template)
+[![Total Downloads](https://img.shields.io/packagist/dt/DansMaCulotte/laravel-mail-template.svg?style=flat-square)](https://packagist.org/packages/dansmaculotte/laravel-mail-template)
+[![Build Status](https://img.shields.io/travis/DansMaCulotte/laravel-mail-template/master.svg?style=flat-square)](https://travis-ci.org/dansmaculotte/laravel-mail-template)
+[![Quality Score](https://img.shields.io/scrutinizer/g/DansMaCulotte/laravel-mail-template.svg?style=flat-square)](https://scrutinizer-ci.com/g/dansmaculotte/laravel-mail-template)
+[![Code Coverage](https://img.shields.io/coveralls/github/DansMaCulotte/laravel-mail-template.svg?style=flat-square)](https://coveralls.io/github/dansmaculotte/laravel-mail-template)
 
-This package allows you to send emails via mail service providers template's engine.
+> This package allows you to send emails via mail service providers template's engine.
 
 Actually there is only 2 drivers available:
 
   - [Mandrill](https://mandrillapp.com/api/docs/)
   - [Mailjet](https://dev.mailjet.com/guides/#about-the-mailjet-api)
   
-There is also and `log` and `null` driver for testing purpose.
+There is also and `log` and `null` driver for testing and debug purpose.
 
 ## Installation
+
+### Requirements
+
+- PHP 7.2
 
 You can install the package via composer:
 

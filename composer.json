@@ -1,7 +1,6 @@
 {
     "name": "dansmaculotte/laravel-mail-template",
     "description": "A mail template driver to send emails with",
-    "version": "0.1.0",
     "keywords": [
         "mail",
         "template",
