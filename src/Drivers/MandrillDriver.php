@@ -133,7 +133,7 @@ class MandrillDriver implements Driver
                 $this->message
             );
         } catch (Mandrill_Error $exception) {
-            throw SendError::responseError('mandrill',0, $exception);
+            throw SendError::responseError('mandrill', 0, $exception);
         }
 
         return $response;
@@ -147,5 +147,4 @@ class MandrillDriver implements Driver
             ]),
         ];
     }
-
 }

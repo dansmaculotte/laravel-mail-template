@@ -28,7 +28,6 @@ class MailTemplateServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(MailTemplate::class, function () {
-
             $driver = config('mail-template.driver', null);
             if (is_null($driver) || $driver === 'log') {
                 return new NullDriver($driver === 'log');

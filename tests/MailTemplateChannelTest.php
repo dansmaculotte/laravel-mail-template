@@ -3,11 +3,10 @@
 
 namespace DansMaCulotte\MailTemplate\Tests;
 
-use DansMaCulotte\MailTemplate\Tests\TestCase;
 use DansMaCulotte\MailTemplate\MailTemplate;
 use DansMaCulotte\MailTemplate\MailTemplateChannel;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable as NotifiableTrait;
+use Illuminate\Support\Facades\Notification;
 
 class MailTemplateChannelTest extends TestCase
 {
@@ -29,8 +28,8 @@ class MailTemplateChannelTest extends TestCase
     }
 }
 
-class Notifiable {
-
+class Notifiable
+{
     use NotifiableTrait;
 
     public function getKey()

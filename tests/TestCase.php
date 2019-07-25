@@ -3,7 +3,6 @@
 
 namespace DansMaCulotte\MailTemplate\Tests;
 
-
 use DansMaCulotte\MailTemplate\MailTemplateServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 

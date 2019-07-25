@@ -3,20 +3,15 @@
 
 namespace DansMaCulotte\MailTemplate\Tests\Mandrill;
 
-use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
 use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use DansMaCulotte\MailTemplate\MailTemplate;
-use Mailjet\Client;
-use Mailjet\Request;
-use Mailjet\Response;
 use Mandrill;
 use Mandrill_Error;
 use Mandrill_Messages;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 
 class MailTemplateTest extends TestCase
 {
@@ -60,7 +55,6 @@ class MailTemplateTest extends TestCase
         $driver = new MandrillDriver([
             'key' => 'test',
         ]);
-
     }
 
     /** @test */

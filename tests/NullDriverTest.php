@@ -3,9 +3,9 @@
 
 namespace DansMaCulotte\MailTemplate\Tests;
 
+use DansMaCulotte\MailTemplate\Drivers\NullDriver;
 use Illuminate\Support\Facades\Log;
 use Mockery;
-use DansMaCulotte\MailTemplate\Drivers\NullDriver;
 use PHPUnit\Framework\TestCase;
 
 class NullDriverTest extends TestCase

@@ -3,6 +3,7 @@
 namespace DansMaCulotte\MailTemplate;
 
 use DansMaCulotte\MailTemplate\Drivers\Driver;
+
 class MailTemplate
 {
     /** @var Driver|null */

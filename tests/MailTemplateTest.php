@@ -3,7 +3,6 @@
 
 namespace DansMaCulotte\MailTemplate\Tests;
 
-
 use DansMaCulotte\MailTemplate\Drivers\Driver;
 use DansMaCulotte\MailTemplate\MailTemplate;
 use Mockery;
@@ -23,7 +22,6 @@ class MailTemplateTest extends TestCase
         $this->driver = Mockery::mock(Driver::class);
 
         $this->mailTemplate = new MailTemplate($this->driver);
-
     }
 
     protected function tearDown(): void

@@ -6,7 +6,6 @@ use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use Mailjet\Client;
 use Mailjet\Resources;
-use Mailjet\Response;
 
 /**
  * Class MailjetDriver
@@ -50,10 +49,10 @@ class MailjetDriver implements Driver
      */
     public function setFrom(string $name, string $email): Driver
     {
-       $this->message['From']['Name'] = $name;
-       $this->message['From']['Email'] = $email;
+        $this->message['From']['Name'] = $name;
+        $this->message['From']['Email'] = $email;
 
-       return $this;
+        return $this;
     }
 
     /**
@@ -152,5 +151,4 @@ class MailjetDriver implements Driver
             ])
         ];
     }
-
 }

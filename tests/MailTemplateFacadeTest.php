@@ -3,7 +3,6 @@
 
 namespace DansMaCulotte\MailTemplate\Tests;
 
-
 use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
 use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
 use DansMaCulotte\MailTemplate\Drivers\NullDriver;

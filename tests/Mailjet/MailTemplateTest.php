@@ -66,7 +66,6 @@ class MailTemplateTest extends TestCase
         $driver = new MailjetDriver([
             'key' => 'test',
         ]);
-
     }
 
     /** @test */
