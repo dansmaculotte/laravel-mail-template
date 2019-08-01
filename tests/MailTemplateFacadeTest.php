@@ -6,6 +6,7 @@ namespace DansMaCulotte\MailTemplate\Tests;
 use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
 use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
 use DansMaCulotte\MailTemplate\Drivers\NullDriver;
+use DansMaCulotte\MailTemplate\Drivers\SendinblueDriver;
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\MailTemplate;
 
@@ -30,6 +31,18 @@ class MailTemplateFacadeTest extends TestCase
 
         $this->assertInstanceOf(MailTemplate::class, $mailTemplate);
         $this->assertInstanceOf(MailjetDriver::class, $mailTemplate->driver);
+    }
+
+    /** @test */
+    public function should_instantiate_facade_with_sendinblue_driver()
+    {
+        config()->set('mail-template.driver', 'sendinblue');
+        config()->set('mail-template.sendinblue.key', 'sendinblue');
+
+        $mailTemplate = $this->app[MailTemplate::class];
+
+        $this->assertInstanceOf(MailTemplate::class, $mailTemplate);
+        $this->assertInstanceOf(SendinblueDriver::class, $mailTemplate->driver);
     }
 
     /** @test */
