@@ -5,6 +5,7 @@ namespace DansMaCulotte\MailTemplate;
 use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
 use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
 use DansMaCulotte\MailTemplate\Drivers\NullDriver;
+use DansMaCulotte\MailTemplate\Drivers\SendinblueDriver;
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,6 +40,9 @@ class MailTemplateServiceProvider extends ServiceProvider
                     break;
                 case 'mandrill':
                     $driver = new MandrillDriver(config('mail-template.mandrill'));
+                    break;
+                case 'sendinblue':
+                    $driver = new SendinblueDriver(config('mail-template.sendinblue'));
                     break;
                 default:
                     throw InvalidConfiguration::driverNotFound($driver);

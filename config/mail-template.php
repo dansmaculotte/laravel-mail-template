@@ -20,4 +20,8 @@ return [
     'mandrill' => [
         'secret' => env('MANDRILL_SECRET'),
     ],
+
+    'sendinblue' => [
+        'key' => env('SENDINBLUE_KEY'),
+    ]
 ];
