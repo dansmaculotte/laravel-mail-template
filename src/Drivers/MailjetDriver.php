@@ -59,7 +59,7 @@ class MailjetDriver implements Driver
      * @param string $template
      * @return Driver
      */
-    public function setTemplate(string $template): Driver
+    public function setTemplate($template): Driver
     {
         $this->message['TemplateID'] = intval($template);
         $this->message['TemplateLanguage'] = true;
