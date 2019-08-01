@@ -10,7 +10,6 @@ namespace DansMaCulotte\MailTemplate\Drivers;
 
 
 use GuzzleHttp\Client;
-use SendinBlue\Client\Api\AccountApi;
 use SendinBlue\Client\Api\SMTPApi;
 use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\SendSmtpEmail;
