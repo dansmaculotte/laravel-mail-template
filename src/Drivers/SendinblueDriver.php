@@ -84,10 +84,10 @@ class SendinblueDriver implements Driver
      */
     public function setRecipient(string $name, string $email): Driver
     {
-        $this->message['to'] = new SendSmtpEmailTo([
+        $this->message['to'] = [new SendSmtpEmailTo([
             'name' => $name,
             'email' => $email
-        ]);
+        ])];
 
         return $this;
     }
@@ -104,7 +104,7 @@ class SendinblueDriver implements Driver
             $params[$variableKey] = $variableValue;
         }
 
-        $this->message['params'] = json_encode($params);
+        $this->message['params'] = $params;
 
         return $this;
     }
