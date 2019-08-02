@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: martinpotel
- * Date: 2019-08-01
- * Time: 12:37
- */
 
 namespace DansMaCulotte\MailTemplate\Drivers;
 
