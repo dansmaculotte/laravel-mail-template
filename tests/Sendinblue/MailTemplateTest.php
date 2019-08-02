@@ -67,7 +67,7 @@ class MailTemplateTest extends TestCase
         $this->mailTemplate->setRecipient('test_recipient_name', 'test_recipient_email');
 
         $varRecipient = null;
-        $recipients = $this->driver->message['to'];
+        $recipients = $this->driver->message['to'][0];
 
         $this->assertNotNull($recipients);
         $this->assertTrue($recipients->getName() === 'test_recipient_name');
@@ -89,7 +89,7 @@ class MailTemplateTest extends TestCase
             'test_key' => 'test_value'
         ]);
 
-        $this->assertJsonStringEqualsJsonString('{"test_key":"test_value"}', $this->driver->message['params']);
+        $this->assertArrayHasKey('test_key', $this->driver->message['params']);
     }
 
     /** @test */
