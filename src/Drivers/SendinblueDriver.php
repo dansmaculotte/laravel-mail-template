@@ -3,6 +3,7 @@
 namespace DansMaCulotte\MailTemplate\Drivers;
 
 
+use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use GuzzleHttp\Client;
 use SendinBlue\Client\Api\SMTPApi;
@@ -25,13 +26,18 @@ class SendinblueDriver implements Driver
     public $message = [];
 
     /**
-
-    /**
+     *
+     *
      * Driver constructor.
      * @param array $config
+     * @throws InvalidConfiguration
      */
     public function __construct(array $config)
     {
+        if (!isset($config['key'])) {
+            throw InvalidConfiguration::invalidCredential('sendinblue', 'key');
+        }
+
         $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', $config['key']);
         $this->client = new SMTPApi(new Client(), $config, null);
     }

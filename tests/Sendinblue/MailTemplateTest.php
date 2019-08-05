@@ -4,6 +4,7 @@ namespace DansMaCulotte\MailTemplate\Tests\Sendinblue;
 
 
 use DansMaCulotte\MailTemplate\Drivers\SendinblueDriver;
+use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use DansMaCulotte\MailTemplate\MailTemplate;
 use DansMaCulotte\MailTemplate\Tests\TestCase;
@@ -45,6 +46,15 @@ class MailTemplateTest extends TestCase
         Mockery::close();
     }
 
+    /** @test */
+    public function should_throw_error_with_key()
+    {
+        $this->expectExceptionObject(InvalidConfiguration::invalidCredential('sendinblue', 'key'));
+
+        $driver = new SendinblueDriver([
+            'secret' => 'test',
+        ]);
+    }
 
     /** @test */
     public function should_set_subject()
