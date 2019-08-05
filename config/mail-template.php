@@ -20,4 +20,9 @@ return [
     'mandrill' => [
         'secret' => env('MANDRILL_SECRET'),
     ],
+
+    'mailgun' => [
+        'key' => env('MAILGUN_KEY'),
+        'domain' => env('MAILGUN_DOMAIN'),
+    ]
 ];
