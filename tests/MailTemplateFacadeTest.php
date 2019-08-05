@@ -49,8 +49,8 @@ class MailTemplateFacadeTest extends TestCase
     public function should_instantiate_facade_with_mailgun_driver()
     {
         config()->set('mail-template.driver', 'mailgun');
-        config()->set('mail-template.mandrill.key', 'mailgun-key');
-        config()->set('mail-template.mandrill.domain', 'example.com');
+        config()->set('mail-template.mailgun.key', 'mailgun-key');
+        config()->set('mail-template.mailgun.domain', 'example.com');
 
         $mailTemplate = $this->app[MailTemplate::class];
 
