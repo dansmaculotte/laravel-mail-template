@@ -109,8 +109,8 @@ class MailTemplateTest extends TestCase
     public function should_receive_send_successfully()
     {
         $this->mailTemplate->setSubject('test_subject');
-        $this->mailTemplate->setFrom('martin', 'martin@dansmaculotte.fr');
-        $this->mailTemplate->setRecipient('martin potel', 'mrtn.potel@gmail.com');
+        $this->mailTemplate->setFrom('foo boo', 'from@test.fr');
+        $this->mailTemplate->setRecipient('boo foo', 'tp@test.com');
         $this->mailTemplate->setLanguage('test');
         $this->mailTemplate->setTemplate('d-1f953e28e43d433c81cc3f1c05d10822');
         $this->mailTemplate->setVariables([
