@@ -8,10 +8,11 @@
 
 > This package allows you to send emails via mail service providers template's engine.
 
-Actually there is only 2 drivers available:
+There are 3 drivers available:
 
   - [Mandrill](https://mandrillapp.com/api/docs/)
   - [Mailjet](https://dev.mailjet.com/guides/#about-the-mailjet-api)
+  - [Mailgun](https://documentation.mailgun.com/en/latest/api_reference.html) 
   
 There is also and `log` and `null` driver for testing and debug purpose.
 
