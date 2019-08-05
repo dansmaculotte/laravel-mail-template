@@ -4,10 +4,12 @@ namespace DansMaCulotte\MailTemplate\Tests\Sendinblue;
 
 
 use DansMaCulotte\MailTemplate\Drivers\SendinblueDriver;
+use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use DansMaCulotte\MailTemplate\MailTemplate;
 use DansMaCulotte\MailTemplate\Tests\TestCase;
 use Mockery;
 use SendinBlue\Client\Api\SMTPApi;
+use SendinBlue\Client\ApiException;
 use SendinBlue\Client\Model\CreateSmtpEmail;
 
 class MailTemplateTest extends TestCase
@@ -127,6 +129,24 @@ class MailTemplateTest extends TestCase
         $response->shouldReceive('getMessageId')->andReturn('test');
 
         $this->client->shouldReceive('sendTransacEmail')->andReturn($response);
+        $this->mailTemplate->send();
+    }
+
+    /** @test */
+    public function should_receive_send_and_throw_error()
+    {
+        $this->mailTemplate->setSubject('test_subject');
+        $this->mailTemplate->setFrom('martin', 'from@test.fr');
+        $this->mailTemplate->setRecipient('gael', 'to@test.fr');
+        $this->mailTemplate->setLanguage('test');
+        $this->mailTemplate->setTemplate(1);
+        $this->mailTemplate->setVariables([
+            'test_key' => 'test_value'
+        ]);
+
+        $this->client->shouldReceive('sendTransacEmail')->andThrow(ApiException::class);
+
+        $this->expectExceptionObject(SendError::responseError('sendinblue'));
         $this->mailTemplate->send();
     }
 }

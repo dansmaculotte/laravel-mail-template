@@ -3,8 +3,10 @@
 namespace DansMaCulotte\MailTemplate\Drivers;
 
 
+use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use GuzzleHttp\Client;
 use SendinBlue\Client\Api\SMTPApi;
+use SendinBlue\Client\ApiException;
 use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\SendSmtpEmail;
 use SendinBlue\Client\Model\SendSmtpEmailSender;
@@ -114,13 +116,18 @@ class SendinblueDriver implements Driver
 
     /**
      * @return array
-     * @throws \SendinBlue\Client\ApiException
+     * @throws SendError
      */
     public function send(): array
     {
         $email = new SendSmtpEmail($this->message);
-        $response = $this->client->sendTransacEmail($email);
-        return ['messageId' => $response->getMessageId()];
+
+        try {
+            $response = $this->client->sendTransacEmail($email);
+            return ['messageId' => $response->getMessageId()];
+        } catch (ApiException $exception) {
+            throw SendError::responseError('sendinblue', 0, $exception);
+        }
     }
 
     /**
