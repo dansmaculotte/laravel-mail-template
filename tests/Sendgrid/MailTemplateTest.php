@@ -112,7 +112,7 @@ class MailTemplateTest extends TestCase
         $this->mailTemplate->setFrom('foo boo', 'from@test.fr');
         $this->mailTemplate->setRecipient('boo foo', 'tp@test.com');
         $this->mailTemplate->setLanguage('test');
-        $this->mailTemplate->setTemplate('d-1f953e28e43d433c81cc3f1c05d10822');
+        $this->mailTemplate->setTemplate('template_id');
         $this->mailTemplate->setVariables([
             'test_key' => 'test_value'
         ]);
