@@ -3,6 +3,7 @@
 namespace DansMaCulotte\MailTemplate\Drivers;
 
 
+use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use Mailgun\Exception\HttpClientException;
 use Mailgun\Mailgun;
@@ -25,9 +26,18 @@ class MailgunDriver implements Driver
     /**
      * Driver constructor.
      * @param array $config
+     * @throws InvalidConfiguration
      */
     public function __construct(array $config)
     {
+        if (!isset($config['key'])) {
+            throw InvalidConfiguration::invalidCredential('mailgun', 'key');
+        }
+
+        if (!isset($config['domain'])) {
+            throw InvalidConfiguration::invalidCredential('mailgun', 'domain');
+        }
+
         $this->client = Mailgun::create($config['key']);
         $this->domain = $config['domain'];
     }

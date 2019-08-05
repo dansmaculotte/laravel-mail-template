@@ -3,6 +3,7 @@
 namespace DansMaCulotte\MailTemplate\Tests\Mailgun;
 
 use DansMaCulotte\MailTemplate\Drivers\MailgunDriver;
+use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use DansMaCulotte\MailTemplate\MailTemplate;
 use DansMaCulotte\MailTemplate\Tests\TestCase;
@@ -46,6 +47,27 @@ class MailTemplateTest extends TestCase
         }
         Mockery::close();
     }
+
+    /** @test */
+    public function should_throw_error_with_key()
+    {
+        $this->expectExceptionObject(InvalidConfiguration::invalidCredential('mailgun', 'key'));
+
+        $driver = new MailgunDriver([
+            'domain' => 'test',
+        ]);
+    }
+
+    /** @test */
+    public function should_throw_error_with_domain()
+    {
+        $this->expectExceptionObject(InvalidConfiguration::invalidCredential('mailgun', 'domain'));
+
+        $driver = new MailgunDriver([
+            'key' => 'test',
+        ]);
+    }
+
 
     /** @test */
     public function should_set_from()
