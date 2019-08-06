@@ -36,6 +36,26 @@ To publish the config file to config/mail-template.php run:
 php artisan vendor:publish --provider="DansMaCulotte\MailTemplate\MailTemplateServiceProvider"
 ```
 
+Finally, install the email service package needed:
+
+- Mailjet
+
+```bash
+composer require mailjet/mailjet-apiv3-php
+```
+
+- Mandrill
+
+```bash
+composer require mandrill/mandrill
+```
+
+- SendinBlue
+
+```bash
+composer require sendinblue/api-v3-sdk
+```
+
 ## Usage
 
 Configure your mail template driver and credentials in `config/mail-template.php`.
