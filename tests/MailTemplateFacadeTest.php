@@ -6,6 +6,7 @@ namespace DansMaCulotte\MailTemplate\Tests;
 use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
 use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
 use DansMaCulotte\MailTemplate\Drivers\NullDriver;
+use DansMaCulotte\MailTemplate\Drivers\SendgridDriver;
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\MailTemplate;
 
@@ -42,6 +43,18 @@ class MailTemplateFacadeTest extends TestCase
 
         $this->assertInstanceOf(MailTemplate::class, $mailTemplate);
         $this->assertInstanceOf(MandrillDriver::class, $mailTemplate->driver);
+    }
+
+    /** @test */
+    public function should_instantiate_facade_with_sendgrid_driver()
+    {
+        config()->set('mail-template.driver', 'sendgrid');
+        config()->set('mail-template.sendgrid.key', 'mandrill');
+
+        $mailTemplate = $this->app[MailTemplate::class];
+
+        $this->assertInstanceOf(MailTemplate::class, $mailTemplate);
+        $this->assertInstanceOf(SendgridDriver::class, $mailTemplate->driver);
     }
 
     /** @test */

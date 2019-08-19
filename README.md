@@ -8,10 +8,11 @@
 
 > This package allows you to send emails via mail service providers template's engine.
 
-Actually there is only 2 drivers available:
+There are 3 drivers available:
 
   - [Mandrill](https://mandrillapp.com/api/docs/)
   - [Mailjet](https://dev.mailjet.com/guides/#about-the-mailjet-api)
+  - [Sendgrid](https://sendgrid.com/docs/api-reference/)
   
 There is also and `log` and `null` driver for testing and debug purpose.
 
@@ -33,6 +34,26 @@ To publish the config file to config/mail-template.php run:
 
 ```php
 php artisan vendor:publish --provider="DansMaCulotte\MailTemplate\MailTemplateServiceProvider"
+```
+
+Finally, install the email service package needed:
+
+- Mailjet
+
+```bash
+composer require mailjet/mailjet-apiv3-php
+```
+
+- Mandrill
+
+```bash
+composer require mandrill/mandrill
+```
+
+- SendGrid
+
+```bash
+composer require sendgrid/sendgrid
 ```
 
 ## Usage
