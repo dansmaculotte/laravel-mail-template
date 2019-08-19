@@ -2,6 +2,7 @@
 
 namespace DansMaCulotte\MailTemplate;
 
+use DansMaCulotte\MailTemplate\Drivers\MailgunDriver;
 use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
 use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
 use DansMaCulotte\MailTemplate\Drivers\NullDriver;
@@ -43,6 +44,8 @@ class MailTemplateServiceProvider extends ServiceProvider
                     break;
                 case 'sendgrid':
                     $driver = new SendgridDriver(config('mail-template.sendgrid'));
+                case 'mailgun':
+                    $driver = new MailgunDriver(config('mail-template.mailgun'));
                     break;
                 default:
                     throw InvalidConfiguration::driverNotFound($driver);

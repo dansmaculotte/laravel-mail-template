@@ -13,6 +13,7 @@ There are 3 drivers available:
   - [Mandrill](https://mandrillapp.com/api/docs/)
   - [Mailjet](https://dev.mailjet.com/guides/#about-the-mailjet-api)
   - [Sendgrid](https://sendgrid.com/docs/api-reference/)
+  - [Mailgun](https://documentation.mailgun.com/en/latest/api_reference.html) 
   
 There is also and `log` and `null` driver for testing and debug purpose.
 
@@ -54,6 +55,12 @@ composer require mandrill/mandrill
 
 ```bash
 composer require sendgrid/sendgrid
+```
+
+- Mailgun
+
+```bash
+composer require mailgun/mailgun-php
 ```
 
 ## Usage
