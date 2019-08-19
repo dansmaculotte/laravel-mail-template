@@ -2,7 +2,6 @@
 
 namespace DansMaCulotte\MailTemplate\Drivers;
 
-
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use GuzzleHttp\Client;
@@ -100,7 +99,6 @@ class SendinblueDriver implements Driver
      */
     public function setVariables(array $variables): Driver
     {
-
         $params = [];
         foreach ($variables as $variableKey => $variableValue) {
             $params[$variableKey] = $variableValue;

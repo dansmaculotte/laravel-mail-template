@@ -149,7 +149,6 @@ class MailTemplateTest extends TestCase
     /** @test */
     public function should_receive_send_and_throw_error()
     {
-
         $this->mailTemplate->setSubject('test_subject');
         $this->mailTemplate->setFrom('martin', 'martin@dansmaculotte.fr');
         $this->mailTemplate->setRecipient('gael', 'martin@dansmaculotte.fr');

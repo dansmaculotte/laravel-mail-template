@@ -63,7 +63,7 @@ class MailTemplateFacadeTest extends TestCase
     public function should_instantiate_facade_with_sendgrid_driver()
     {
         config()->set('mail-template.driver', 'sendgrid');
-        config()->set('mail-template.sendgrid.key', 'mandrill');
+        config()->set('mail-template.sendgrid.key', 'sendgrid');
 
         $mailTemplate = $this->app[MailTemplate::class];
 

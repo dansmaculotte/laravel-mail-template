@@ -2,7 +2,6 @@
 
 namespace DansMaCulotte\MailTemplate\Tests\Sendinblue;
 
-
 use DansMaCulotte\MailTemplate\Drivers\SendinblueDriver;
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;

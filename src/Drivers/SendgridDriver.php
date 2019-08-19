@@ -6,7 +6,6 @@ use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use SendGrid;
 use SendGrid\Mail\Mail;
-use SendGrid\Mail\Substitution;
 
 class SendgridDriver implements Driver
 {
@@ -52,7 +51,7 @@ class SendgridDriver implements Driver
      * @param string $templateId
      * @return Driver
      */
-    public function setTemplate(string $templateId): Driver
+    public function setTemplate($templateId): Driver
     {
         $this->message->setTemplateId($templateId);
 

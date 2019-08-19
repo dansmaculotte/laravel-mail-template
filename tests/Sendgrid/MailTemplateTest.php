@@ -124,7 +124,6 @@ class MailTemplateTest extends TestCase
 
         $response = $this->mailTemplate->send();
         $this->assertEquals([], $response);
-
     }
 
     /** @test */

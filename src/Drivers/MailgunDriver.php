@@ -2,7 +2,6 @@
 
 namespace DansMaCulotte\MailTemplate\Drivers;
 
-
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use Mailgun\Exception\HttpClientException;
@@ -58,7 +57,7 @@ class MailgunDriver implements Driver
      * @param string $template
      * @return Driver
      */
-    public function setTemplate(string $template): Driver
+    public function setTemplate($template): Driver
     {
         $this->message['template'] = $template;
 
