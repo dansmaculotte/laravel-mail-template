@@ -54,7 +54,7 @@ class MandrillDriver implements Driver
      * @param string $template
      * @return Driver
      */
-    public function setTemplate(string $template): Driver
+    public function setTemplate($template): Driver
     {
         $this->body['template'] = $template;
 

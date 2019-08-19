@@ -14,6 +14,7 @@ There are 3 drivers available:
   - [Mailjet](https://dev.mailjet.com/guides/#about-the-mailjet-api)
   - [Sendgrid](https://sendgrid.com/docs/api-reference/)
   - [Mailgun](https://documentation.mailgun.com/en/latest/api_reference.html) 
+  - [SendinBlue](https://developers.sendinblue.com/docs)
   
 There is also and `log` and `null` driver for testing and debug purpose.
 
@@ -61,6 +62,12 @@ composer require sendgrid/sendgrid
 
 ```bash
 composer require mailgun/mailgun-php
+```
+
+- SendinBlue
+
+```bash
+composer require sendinblue/api-v3-sdk
 ```
 
 ## Usage

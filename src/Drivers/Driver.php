@@ -23,10 +23,10 @@ interface Driver
     public function setFrom(string $name, string $email): self;
 
     /**
-     * @param string $template
+     * @param mixed $template
      * @return Driver
      */
-    public function setTemplate(string $template): self;
+    public function setTemplate($template): self;
 
     /**
      * @param string $subject

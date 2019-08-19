@@ -2,18 +2,21 @@
 
 namespace DansMaCulotte\MailTemplate\Drivers;
 
+
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
-use Mailjet\Client;
-use Mailjet\Resources;
+use GuzzleHttp\Client;
+use SendinBlue\Client\Api\SMTPApi;
+use SendinBlue\Client\ApiException;
+use SendinBlue\Client\Configuration;
+use SendinBlue\Client\Model\SendSmtpEmail;
+use SendinBlue\Client\Model\SendSmtpEmailSender;
+use SendinBlue\Client\Model\SendSmtpEmailTo;
 
-/**
- * Class MailjetDriver
- * @package DansMaCulotte\MailTemplate\Drivers
- */
-class MailjetDriver implements Driver
+class SendinblueDriver implements Driver
 {
-    /** @var Client|null  */
+
+    /** @var SMTPApi|null  */
     public $client = null;
 
     /** @var array */
@@ -23,23 +26,20 @@ class MailjetDriver implements Driver
     public $message = [];
 
     /**
-     * MailjetDriver constructor.
-     * @param $config
+     *
+     *
+     * Driver constructor.
+     * @param array $config
      * @throws InvalidConfiguration
      */
-    public function __construct($config)
+    public function __construct(array $config)
     {
         if (!isset($config['key'])) {
-            throw InvalidConfiguration::invalidCredential('mailjet', 'key');
+            throw InvalidConfiguration::invalidCredential('sendinblue', 'key');
         }
 
-        if (!isset($config['secret'])) {
-            throw InvalidConfiguration::invalidCredential('mailjet', 'secret');
-        }
-
-        $this->client = new Client($config['key'], $config['secret'], true, [
-            'version' => 'v3.1',
-        ]);
+        $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', $config['key']);
+        $this->client = new SMTPApi(new Client(), $config, null);
     }
 
     /**
@@ -49,8 +49,10 @@ class MailjetDriver implements Driver
      */
     public function setFrom(string $name, string $email): Driver
     {
-        $this->message['From']['Name'] = $name;
-        $this->message['From']['Email'] = $email;
+        $this->message['sender'] = new SendSmtpEmailSender([
+            'name' => $name,
+            'email' => $email
+        ]);
 
         return $this;
     }
@@ -61,19 +63,18 @@ class MailjetDriver implements Driver
      */
     public function setTemplate($template): Driver
     {
-        $this->message['TemplateID'] = intval($template);
-        $this->message['TemplateLanguage'] = true;
+        $this->message['templateId'] = $template;
 
         return $this;
     }
 
     /**
-     * @param string $subjet
+     * @param string $subject
      * @return Driver
      */
-    public function setSubject(string $subjet): Driver
+    public function setSubject(string $subject): Driver
     {
-        $this->message['Subject'] = $subjet;
+        $this->message['subject'] = $subject;
 
         return $this;
     }
@@ -85,10 +86,10 @@ class MailjetDriver implements Driver
      */
     public function setRecipient(string $name, string $email): Driver
     {
-        $this->message['To'][] = [
-            'Name' => $name,
-            'Email' => $email,
-        ];
+        $this->message['to'] = [new SendSmtpEmailTo([
+            'name' => $name,
+            'email' => $email
+        ])];
 
         return $this;
     }
@@ -99,9 +100,13 @@ class MailjetDriver implements Driver
      */
     public function setVariables(array $variables): Driver
     {
+
+        $params = [];
         foreach ($variables as $variableKey => $variableValue) {
-            $this->message['Variables'][$variableKey] = $variableValue;
+            $params[$variableKey] = $variableValue;
         }
+
+        $this->message['params'] = $params;
 
         return $this;
     }
@@ -112,8 +117,6 @@ class MailjetDriver implements Driver
      */
     public function setLanguage(string $language): Driver
     {
-        $this->message['Variables']['language'] = $language;
-
         return $this;
     }
 
@@ -123,19 +126,14 @@ class MailjetDriver implements Driver
      */
     public function send(): array
     {
-        $response = $this->client->post(Resources::$Email, [
-            'body' => array_merge($this->body, [
-                'Messages' => [
-                    $this->message,
-                ],
-            ])
-        ]);
+        $email = new SendSmtpEmail($this->message);
 
-        if ($response->success() == false) {
-            throw SendError::responseError('mailjet');
+        try {
+            $response = $this->client->sendTransacEmail($email);
+            return ['messageId' => $response->getMessageId()];
+        } catch (ApiException $exception) {
+            throw SendError::responseError('sendinblue', 0, $exception);
         }
-
-        return $response->getData();
     }
 
     /**

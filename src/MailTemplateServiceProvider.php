@@ -7,6 +7,7 @@ use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
 use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
 use DansMaCulotte\MailTemplate\Drivers\NullDriver;
 use DansMaCulotte\MailTemplate\Drivers\SendgridDriver;
+use DansMaCulotte\MailTemplate\Drivers\SendinblueDriver;
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use Illuminate\Support\ServiceProvider;
 
@@ -44,8 +45,12 @@ class MailTemplateServiceProvider extends ServiceProvider
                     break;
                 case 'sendgrid':
                     $driver = new SendgridDriver(config('mail-template.sendgrid'));
+                    break;
                 case 'mailgun':
                     $driver = new MailgunDriver(config('mail-template.mailgun'));
+                    break;
+                case 'sendinblue':
+                    $driver = new SendinblueDriver(config('mail-template.sendinblue'));
                     break;
                 default:
                     throw InvalidConfiguration::driverNotFound($driver);

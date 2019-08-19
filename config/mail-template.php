@@ -28,5 +28,9 @@ return [
     'mailgun' => [
         'key' => env('MAILGUN_KEY'),
         'domain' => env('MAILGUN_DOMAIN'),
-    ]
+    ],
+
+    'sendinblue' => [
+        'key' => env('SENDINBLUE_KEY'),
+    ],
 ];
