@@ -8,7 +8,7 @@
 
 > This package allows you to send emails via mail service providers template's engine.
 
-There are 3 drivers available:
+There are 5 drivers available:
 
   - [Mandrill](https://mandrillapp.com/api/docs/)
   - [Mailjet](https://dev.mailjet.com/guides/#about-the-mailjet-api)
