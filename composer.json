@@ -1,6 +1,7 @@
 {
     "name": "dansmaculotte/laravel-mail-template",
     "description": "A mail template driver to send emails with",
+    "version": "1.0.0",
     "keywords": [
         "mail",
         "template",
@@ -21,8 +22,8 @@
     "require": {
         "php": "^7.2",
         "ext-json": "*",
-        "illuminate/notifications": "^5.8",
-        "illuminate/support": "^5.8"
+        "illuminate/notifications": "^5.8|^6.0",
+        "illuminate/support": "^5.8|^6.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",
@@ -33,7 +34,7 @@
         "mandrill/mandrill": "^1.0",
         "mockery/mockery": "^1.2",
         "nyholm/psr7": "^1.1",
-        "orchestra/testbench": "^3.8",
+        "orchestra/testbench": "^3.8|^4.0",
         "phpunit/phpunit": "^8.2",
         "sendgrid/sendgrid": "^7.3",
         "sendinblue/api-v3-sdk": "^6.1.0"
