@@ -64,13 +64,13 @@ interface Driver
      * @param bool $enable
      * @return Driver
      */
-    public function trackClicks(bool $enable): self;
+    public function trackClicks(bool $enable = false): self;
 
     /**
      * @param bool $enable
      * @return Driver
      */
-    public function trackOpens(bool $enable): self;
+    public function trackOpens(bool $enable = false): self;
 
     /**
      * @return array

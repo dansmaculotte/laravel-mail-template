@@ -137,8 +137,9 @@ class MailjetDriver implements Driver
      * @param bool $enable
      * @return Driver
      */
-    public function trackClicks(bool $enable): Driver
+    public function trackClicks(bool $enable = false): Driver
     {
+        $this->message['TrackClicks'] = $enable ? 'enabled' : 'disabled';
         return $this;
     }
 
@@ -146,8 +147,10 @@ class MailjetDriver implements Driver
      * @param bool $enable
      * @return Driver
      */
-    public function trackOpens(bool $enable): Driver
+    public function trackOpens(bool $enable = false): Driver
     {
+        $this->message['TrackOpens'] = $enable ? 'enabled' : 'disabled';
+
         return $this;
     }
 

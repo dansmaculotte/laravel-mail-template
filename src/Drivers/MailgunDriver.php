@@ -126,8 +126,10 @@ class MailgunDriver implements Driver
      * @param bool $enable
      * @return Driver
      */
-    public function trackClicks(bool $enable): Driver
+    public function trackClicks(bool $enable = false): Driver
     {
+        $this->message['o:tracking-clicks'] = $enable ? 'yes' : 'no';
+
         return $this;
     }
 
@@ -135,8 +137,10 @@ class MailgunDriver implements Driver
      * @param bool $enable
      * @return Driver
      */
-    public function trackOpens(bool $enable): Driver
+    public function trackOpens(bool $enable = false): Driver
     {
+        $this->message['o:tracking-opens'] = $enable ? 'yes' : 'no';
+
         return $this;
     }
 
