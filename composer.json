@@ -29,7 +29,7 @@
         "friendsofphp/php-cs-fixer": "^2.15",
         "kriswallsmith/buzz": "^1.0",
         "larapack/dd": "^1.1",
-        "mailgun/mailgun-php": "^2.8",
+        "mailgun/mailgun-php": "^3.0",
         "mailjet/mailjet-apiv3-php": "^1.4",
         "mandrill/mandrill": "^1.0",
         "mockery/mockery": "^1.2",
