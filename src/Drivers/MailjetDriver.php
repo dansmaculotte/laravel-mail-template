@@ -118,6 +118,40 @@ class MailjetDriver implements Driver
     }
 
     /**
+     * @param string $file
+     * @param string $name
+     * @return Driver
+     */
+    public function addAttachment(string $file, string $name): Driver
+    {
+        $this->message['Attachments'][] = [
+            'Filename' => $name,
+            'ContentType' => mime_content_type($file),
+            'Base64Content' => base64_encode(file_get_contents($file)),
+        ];
+
+        return $this;
+    }
+
+    /**
+     * @param bool $enable
+     * @return Driver
+     */
+    public function trackClicks(bool $enable): Driver
+    {
+        return $this;
+    }
+
+    /**
+     * @param bool $enable
+     * @return Driver
+     */
+    public function trackOpens(bool $enable): Driver
+    {
+        return $this;
+    }
+
+    /**
      * @return array
      * @throws SendError
      */

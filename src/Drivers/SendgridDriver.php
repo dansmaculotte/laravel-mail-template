@@ -104,6 +104,39 @@ class SendgridDriver implements Driver
     }
 
     /**
+     * @param string $file
+     * @param string $name
+     * @return Driver
+     */
+    public function addAttachment(string $file, string $name): Driver
+    {
+        $fileEncoded = base64_encode(file_get_contents($file));
+        $fileType = mime_content_type($file);
+
+        $this->message->addAttachment($fileEncoded, $fileType, $name);
+
+        return $this;
+    }
+
+    /**
+     * @param bool $enable
+     * @return Driver
+     */
+    public function trackClicks(bool $enable): Driver
+    {
+        return $this;
+    }
+
+    /**
+     * @param bool $enable
+     * @return Driver
+     */
+    public function trackOpens(bool $enable): Driver
+    {
+        return $this;
+    }
+
+    /**
      * @return array
      * @throws SendError
      */

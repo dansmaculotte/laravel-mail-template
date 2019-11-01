@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use SendinBlue\Client\Api\SMTPApi;
 use SendinBlue\Client\ApiException;
 use SendinBlue\Client\Configuration;
+use SendinBlue\Client\Model\SendEmailAttachment;
 use SendinBlue\Client\Model\SendSmtpEmail;
 use SendinBlue\Client\Model\SendSmtpEmailSender;
 use SendinBlue\Client\Model\SendSmtpEmailTo;
@@ -114,6 +115,39 @@ class SendinblueDriver implements Driver
      * @return Driver
      */
     public function setLanguage(string $language): Driver
+    {
+        return $this;
+    }
+
+    /**
+     * @param string $file
+     * @param string $name
+     * @return Driver
+     */
+    public function addAttachment(string $file, string $name): Driver
+    {
+        $this->message['attachment'][] = new SendEmailAttachment([
+            'content' => base64_encode(file_get_contents($file)),
+            'name' => $name,
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * @param bool $enable
+     * @return Driver
+     */
+    public function trackClicks(bool $enable): Driver
+    {
+        return $this;
+    }
+
+    /**
+     * @param bool $enable
+     * @return Driver
+     */
+    public function trackOpens(bool $enable): Driver
     {
         return $this;
     }

@@ -22,8 +22,9 @@
     "require": {
         "php": "^7.2",
         "ext-json": "*",
+        "ext-fileinfo": "*",
         "illuminate/notifications": "^5.8|^6.0",
-        "illuminate/support": "^5.8|^6.0"
+        "illuminate/support": "^5.8|^6.0",
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",
@@ -55,9 +56,9 @@
         "format": "@php vendor/bin/php-cs-fixer fix --config .php_cs.php"
     },
     "suggest": {
+        "mandrill/mandrill": "Required for sending emails via Mandrill (Mailchimp)",
         "mailgun/mailgun-php": "Required for sending emails via Mailgun",
         "mailjet/mailjet-apiv3-php": "Required for sending emails via Mailjet",
-        "mandrill/mandrill": "Required for sending emails via Mandrill (Mailchimp)",
         "sendgrid/sendgrid": "Required for sending emails via Sendgrid",
         "sendinblue/api-v3-sdk": "Required for send emails via Sendinblue"
     },
