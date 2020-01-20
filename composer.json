@@ -24,7 +24,7 @@
         "ext-json": "*",
         "ext-fileinfo": "*",
         "illuminate/notifications": "^5.8|^6.0",
-        "illuminate/support": "^5.8|^6.0",
+        "illuminate/support": "^5.8|^6.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",

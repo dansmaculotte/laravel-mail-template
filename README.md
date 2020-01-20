@@ -89,6 +89,9 @@ $mailTemplate = MailTemplate::setSubject('Welcome aboard')
     ->setRecipient('Recipient Name', 'recipient@email.com')
     ->setLanguage('en')
     ->setTemplate('welcome-aboard')
+    ->addAttachment(storage_path('pdf/invoice.pdf'), 'invoice-42.pdf')
+    ->trackClicks(true)
+    ->trackOpens(true)
     ->setVariables([
         'first_name' => 'Recipient',
     ]);
@@ -126,22 +129,17 @@ Implement `toMailTemplate` method and prepare your template:
 ```php
 public function toMailTemplate($notifiable)
 {
-    return MailTemplate::prepare(
-        'Welcome aboard',
-        [
-            'name' => config('mail.from.name'),
-            'email' => config('mail.from.email'),
-        ],
-        [
-            'name' => $notifiable->full_name,
-            'email' => $notifiable->email,
-        ],
-        $notifiable->preferredLocale(),
-        'welcome-aboard',
-        [
-            'first_name' => $notifiable->first_name
-        ]
-    );
+    return MailTemplate::setSubject('Welcome aboard')
+        ->setFrom(config('mail.name'), config('mail.email'))
+        ->setRecipient('Recipient Name', 'recipient@email.com')
+        ->setLanguage('en')
+        ->setTemplate('welcome-aboard')
+        ->addAttachment(storage_path('pdf/invoice.pdf'), 'invoice-42.pdf')
+        ->trackClicks(true)
+        ->trackOpens(true)
+        ->setVariables([
+           'first_name' => 'Recipient',
+        ]);
 }
 ```
 

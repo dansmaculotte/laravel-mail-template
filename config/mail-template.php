@@ -7,7 +7,7 @@ return [
     | Mail Template Driver
     |--------------------------------------------------------------------------
     |
-    | Supported: "mailjet", "mandrill", "sendgrid, "mailgun", "log", null
+    | Supported: "mailjet", "mandrill", "sendgrid, "mailgun", "sendinblue", "log", null
     |
     */
     'driver' => env('MAIL_TEMPLATE_DRIVER', null),

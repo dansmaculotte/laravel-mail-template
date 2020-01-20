@@ -4,6 +4,18 @@ namespace DansMaCulotte\MailTemplate;
 
 use DansMaCulotte\MailTemplate\Drivers\Driver;
 
+/**
+ * @method self setSubject(string $string)
+ * @method self setFrom(string $name, string $email)
+ * @method self setRecipient(string $name, string $email)
+ * @method self setLanguage(string $language)
+ * @method self setTemplate(string $template)
+ * @method self addAttachment(string $file, string $name)
+ * @method self trackClicks(bool $enable)
+ * @method self trackOpens(bool $enable)
+ * @method self setVariables(array $variables)
+ * @method array toArray()
+ */
 class MailTemplate
 {
     /** @var Driver|null */
@@ -16,26 +28,6 @@ class MailTemplate
     public function __construct(Driver $driver)
     {
         $this->driver = $driver;
-    }
-
-    /**
-     * @param $subject
-     * @param $from
-     * @param $recipient
-     * @param $template
-     * @param $language
-     * @param $variables
-     * @return Driver
-     */
-    public function prepare($subject, $from, $recipient, $template, $language, $variables)
-    {
-        return $this->driver
-            ->setSubject($subject)
-            ->setFrom($from['name'], $from['email'])
-            ->setRecipient($recipient['name'], $recipient['email'])
-            ->setLanguage($language)
-            ->setTemplate($template)
-            ->setVariables($variables);
     }
 
     /**

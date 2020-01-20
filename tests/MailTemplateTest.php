@@ -42,24 +42,23 @@ class MailTemplateTest extends TestCase
             'setRecipient',
             'setLanguage',
             'setTemplate',
+            'addAttachment',
+            'trackClicks',
+            'trackOpens',
             'setVariables'
         )->andReturnSelf();
 
-        $this->mailTemplate->prepare(
-            'test_subject',
-            [
-                'name' => 'from_name',
-                'email' => 'from_email',
-            ],
-            [
-                'name' => 'recipient_name',
-                'email' => 'recipient_email',
-            ],
-            'test_template',
-            'test_language',
-            [
-                'test_var' => 'test_value',
-            ]
-        );
+        $this->mailTemplate
+            ->setSubject('Welcome aboard')
+            ->setFrom('From name', 'from@email.com')
+            ->setRecipient('Recipient Name', 'recipient@email.com')
+            ->setLanguage('en')
+            ->setTemplate('welcome-aboard')
+            ->addAttachment('pdf/invoice.pdf', 'invoice-42.pdf')
+            ->trackClicks(true)
+            ->trackOpens(true)
+            ->setVariables([
+                'first_name' => 'Recipient',
+            ]);
     }
 }
