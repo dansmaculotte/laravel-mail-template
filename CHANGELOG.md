@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/DansMaCulotte/laravel-mail-template/compare/v1.1.0...v1.2.0) (2020-03-27)
+
+
+### Features
+
+* add make method to reset message and body ([636e271](https://github.com/DansMaCulotte/laravel-mail-template/commit/636e271ea5d2921f65ba27d6a606f5517e81bb4f))
+
 ## 1.1.0 (2019-09-09)
 
 
