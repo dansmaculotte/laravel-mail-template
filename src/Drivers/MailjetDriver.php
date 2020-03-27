@@ -17,9 +17,6 @@ class MailjetDriver implements Driver
     public $client = null;
 
     /** @var array */
-    public $body = [];
-
-    /** @var array */
     public $message = [];
 
     /**
@@ -43,6 +40,16 @@ class MailjetDriver implements Driver
     }
 
     /**
+     * @return Driver
+     */
+    public function make(): Driver
+    {
+        $this->message = [];
+
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @param string $email
      * @return Driver
@@ -61,19 +68,19 @@ class MailjetDriver implements Driver
      */
     public function setTemplate($template): Driver
     {
-        $this->message['TemplateID'] = intval($template);
+        $this->message['TemplateID'] = (int) $template;
         $this->message['TemplateLanguage'] = true;
 
         return $this;
     }
 
     /**
-     * @param string $subjet
+     * @param string $subject
      * @return Driver
      */
-    public function setSubject(string $subjet): Driver
+    public function setSubject(string $subject): Driver
     {
-        $this->message['Subject'] = $subjet;
+        $this->message['Subject'] = $subject;
 
         return $this;
     }
@@ -124,14 +131,14 @@ class MailjetDriver implements Driver
     public function send(): array
     {
         $response = $this->client->post(Resources::$Email, [
-            'body' => array_merge($this->body, [
+            'body' => [
                 'Messages' => [
                     $this->message,
                 ],
-            ])
+            ],
         ]);
 
-        if ($response->success() == false) {
+        if ($response->success() === false) {
             throw SendError::responseError('mailjet');
         }
 
@@ -144,11 +151,11 @@ class MailjetDriver implements Driver
     public function toArray(): array
     {
         return [
-            'body' => array_merge($this->body, [
+            'body' => [
                 'Messages' => [
                     $this->message,
                 ],
-            ])
+            ],
         ];
     }
 }

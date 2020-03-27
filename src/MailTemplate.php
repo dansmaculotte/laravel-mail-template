@@ -30,6 +30,7 @@ class MailTemplate
     public function prepare($subject, $from, $recipient, $template, $language, $variables)
     {
         return $this->driver
+            ->make()
             ->setSubject($subject)
             ->setFrom($from['name'], $from['email'])
             ->setRecipient($recipient['name'], $recipient['email'])

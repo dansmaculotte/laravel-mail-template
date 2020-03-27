@@ -14,9 +14,6 @@ class MailgunDriver implements Driver
     public $client = null;
 
     /** @var array */
-    public $body = [];
-
-    /** @var array */
     public $message = [];
 
     /** @var string */
@@ -39,6 +36,16 @@ class MailgunDriver implements Driver
 
         $this->client = Mailgun::create($config['key']);
         $this->domain = $config['domain'];
+    }
+
+    /**
+     * @return Driver
+     */
+    public function make(): Driver
+    {
+        $this->message = [];
+
+        return $this;
     }
 
     /**
@@ -134,11 +141,11 @@ class MailgunDriver implements Driver
     public function toArray(): array
     {
         return [
-            'body' => array_merge($this->body, [
+            'body' => [
                 'Messages' => [
                     $this->message,
                 ],
-            ])
+            ],
         ];
     }
 }

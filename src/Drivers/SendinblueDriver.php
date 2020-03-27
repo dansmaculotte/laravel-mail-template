@@ -19,14 +19,9 @@ class SendinblueDriver implements Driver
     public $client = null;
 
     /** @var array */
-    public $body = [];
-
-    /** @var array */
     public $message = [];
 
     /**
-     *
-     *
      * Driver constructor.
      * @param array $config
      * @throws InvalidConfiguration
@@ -39,6 +34,16 @@ class SendinblueDriver implements Driver
 
         $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', $config['key']);
         $this->client = new SMTPApi(new Client(), $config, null);
+    }
+
+    /**
+     * @return Driver
+     */
+    public function make(): Driver
+    {
+        $this->message = [];
+
+        return $this;
     }
 
     /**
@@ -140,11 +145,11 @@ class SendinblueDriver implements Driver
     public function toArray(): array
     {
         return [
-            'body' => array_merge($this->body, [
+            'body' => [
                 'Messages' => [
                     $this->message,
                 ],
-            ])
+            ],
         ];
     }
 }

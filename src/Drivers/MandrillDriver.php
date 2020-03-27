@@ -38,6 +38,17 @@ class MandrillDriver implements Driver
     }
 
     /**
+     * @return Driver
+     */
+    public function make(): Driver
+    {
+        $this->body = [];
+        $this->message = [];
+
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @param string $email
      * @return Driver
@@ -62,12 +73,12 @@ class MandrillDriver implements Driver
     }
 
     /**
-     * @param string $subjet
+     * @param string $subject
      * @return Driver
      */
-    public function setSubject(string $subjet): Driver
+    public function setSubject(string $subject): Driver
     {
-        $this->message['subject'] = $subjet;
+        $this->message['subject'] = $subject;
 
         return $this;
     }
@@ -126,6 +137,7 @@ class MandrillDriver implements Driver
     public function send(): array
     {
         $response = [];
+
         try {
             $response = $this->client->messages->sendTemplate(
                 $this->body['template'],
@@ -142,9 +154,9 @@ class MandrillDriver implements Driver
     public function toArray(): array
     {
         return [
-            'body' => array_merge($this->body, [
+            'body' => [
                 'message' => $this->message,
-            ]),
+            ],
         ];
     }
 }

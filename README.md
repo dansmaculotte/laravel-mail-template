@@ -84,7 +84,8 @@ use MailTemplate;
 ```
 
 ```php
-$mailTemplate = MailTemplate::setSubject('Welcome aboard')
+$mailTemplate = MailTemplate::make()
+    ->setSubject('Welcome aboard')
     ->setFrom(config('mail.name'), config('mail.email'))
     ->setRecipient('Recipient Name', 'recipient@email.com')
     ->setLanguage('en')

@@ -16,6 +16,11 @@ interface Driver
     public function __construct(array $config);
 
     /**
+     * @return Driver
+     */
+    public function make(): self;
+
+    /**
      * @param string $name
      * @param string $email
      * @return Driver

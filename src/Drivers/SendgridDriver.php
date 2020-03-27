@@ -13,9 +13,6 @@ class SendgridDriver implements Driver
     /** @var SendGrid|null  */
     public $client = null;
 
-    /** @var array */
-    public $body = [];
-
     /** @var SendGrid\Mail\Mail */
     public $message;
 
@@ -32,6 +29,16 @@ class SendgridDriver implements Driver
 
         $this->client = new SendGrid($config['key']);
         $this->message = new Mail();
+    }
+
+    /**
+     * @return Driver
+     */
+    public function make(): Driver
+    {
+        $this->message = new Mail();
+
+        return $this;
     }
 
     /**
@@ -123,9 +130,9 @@ class SendgridDriver implements Driver
     public function toArray(): array
     {
         return [
-            'body' => array_merge($this->body, [
+            'body' => [
                 'message' => $this->message,
-            ]),
+            ],
         ];
     }
 }

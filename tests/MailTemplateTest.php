@@ -37,6 +37,7 @@ class MailTemplateTest extends TestCase
     public function should_prepare_successfully()
     {
         $this->driver->shouldReceive(
+            'make',
             'setSubject',
             'setFrom',
             'setRecipient',
