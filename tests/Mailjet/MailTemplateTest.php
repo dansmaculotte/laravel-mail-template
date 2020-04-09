@@ -182,4 +182,70 @@ class MailTemplateTest extends TestCase
         $this->assertTrue(isset($body['body']['Messages']));
         $this->assertCount(1, $body['body']['Messages']);
     }
+
+    /** @test */
+    public function should_use_debug_email_if_provided()
+    {
+        $client = Mockery::mock(Client::class);
+
+        $driver = new MailjetDriver([
+            'key' => 'testApiKey',
+            'secret' => 'testApiSecret',
+            'debug_email' => [
+                'Name' => 'John Doe',
+                'Email' => 'john@example.com'
+            ]
+        ]);
+        $driver->client = $client;
+        $mailTemplate = new MailTemplate($driver);
+
+        $request = Mockery::mock(Request::class);
+        $response = Mockery::mock(ResponseInterface::class);
+        $response->shouldReceive('getStatusCode')->andReturn(200);
+        $response->shouldReceive('getBody')->andReturn('{}');
+
+        $client->shouldReceive('post')->once()->with(['send', ''], ['body' => [
+            'Messages' => [
+                [
+                    'TemplateErrorReporting' => [
+                        'Name' => 'John Doe',
+                        'Email' => 'john@example.com'
+                    ]
+                ]
+            ],
+        ]])->andReturn(new Response($request, $response));
+
+        $mailTemplate->send();
+    }
+
+    /** @test */
+    public function should_check_debug_email_configuration()
+    {
+        try {
+            new MailjetDriver([
+                'key' => 'testApiKey',
+                'secret' => 'testApiSecret',
+                'debug_email' => [
+                    'Name' => 'John Doe',
+                    // 'Email' => 'john@example.com'
+                ]
+            ]);
+            $this->fail('Exception not thrown');
+        } catch (InvalidConfiguration $e) {
+            $this->assertEquals('debug_email in mailjet configuration must have "Name" and "Email" keys', $e->getMessage());
+        }
+
+        try {
+            new MailjetDriver([
+                'key' => 'testApiKey',
+                'secret' => 'testApiSecret',
+                'debug_email' => [
+                    'Email' => 'john@example.com'
+                ]
+            ]);
+            $this->fail('Exception not thrown');
+        } catch (InvalidConfiguration $e) {
+            $this->assertEquals('debug_email in mailjet configuration must have "Name" and "Email" keys', $e->getMessage());
+        }
+    }
 }
