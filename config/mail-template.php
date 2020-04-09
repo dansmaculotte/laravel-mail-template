@@ -15,6 +15,11 @@ return [
     'mailjet' => [
         'key' => env('MJ_APIKEY_PUBLIC'),
         'secret' => env('MJ_APIKEY_PRIVATE'),
+        // Uncomment to send mailjet template debug email to configured address.
+        // 'debug_email' => [
+        //     'Name' => 'John Doe',
+        //     'Email' => 'john@example.com'
+        // ],
     ],
 
     'mandrill' => [

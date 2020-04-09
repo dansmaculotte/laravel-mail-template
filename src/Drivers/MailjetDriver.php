@@ -17,6 +17,8 @@ class MailjetDriver implements Driver
     public $client = null;
 
     /** @var array */
+    private $debugEmail = null;
+
     public $message = [];
 
     /**
@@ -32,6 +34,13 @@ class MailjetDriver implements Driver
 
         if (!isset($config['secret'])) {
             throw InvalidConfiguration::invalidCredential('mailjet', 'secret');
+        }
+
+        if (isset($config['debug_email'])) {
+            $this->debugEmail = $config['debug_email'];
+            if (!(isset($this->debugEmail['Name']) && isset($this->debugEmail['Email']))) {
+                throw new InvalidConfiguration('debug_email in mailjet configuration must have "Name" and "Email" keys');
+            }
         }
 
         $this->client = new Client($config['key'], $config['secret'], true, [
@@ -130,6 +139,10 @@ class MailjetDriver implements Driver
      */
     public function send(): array
     {
+        if ($this->debugEmail) {
+            $this->message['TemplateErrorReporting'] = $this->debugEmail;
+        }
+
         $response = $this->client->post(Resources::$Email, [
             'body' => [
                 'Messages' => [
