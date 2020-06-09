@@ -149,6 +149,13 @@ public function toMailTemplate($notifiable)
 And that's it.
 When `MailTemplateChannel` will receive the notification it will automatically call `send` method from `MailTemplate` facade.
 
+### Mailjet Specifics
+
+Mailjet API allows to set an email to debug templates. When a template error is
+encountered on email sending, Mailjet sends an error report to this mailbox. To
+do so, set the email in `config/mail-template.php`, in key
+`mailjet.debug_email`.
+
 ### Testing
 
 ```bash
