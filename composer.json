@@ -1,7 +1,6 @@
 {
     "name": "dansmaculotte/laravel-mail-template",
     "description": "A mail template driver to send emails with",
-    "version": "2.0.0",
     "keywords": [
         "mail",
         "template",
@@ -20,10 +19,10 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "ext-json": "*",
-        "illuminate/notifications": "^6.0||^7.0",
-        "illuminate/support": "^6.0||^7.0"
+        "illuminate/notifications": "^7.0||^8.0",
+        "illuminate/support": "^7.0||^8.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
