@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/dansmaculotte/laravel-mail-template/compare/v2.0.0...v3.0.0) (2020-11-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support of Illuminate/Support 6
+
+### Features
+
+* provide a debug email address to get template error reports ([4c94fc3](https://github.com/dansmaculotte/laravel-mail-template/commit/4c94fc30dce612f00e50d88843427cbcce77df1a))
+
+
+* update dependencies for Laravel 8 support ([d97a593](https://github.com/dansmaculotte/laravel-mail-template/commit/d97a59314752c91e477264be2604edd3cf39d625))
+
 ## [2.0.0](https://github.com/DansMaCulotte/laravel-mail-template/compare/v1.2.1...v2.0.0) (2020-05-06)
 
 
