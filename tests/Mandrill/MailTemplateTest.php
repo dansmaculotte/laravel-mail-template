@@ -95,6 +95,26 @@ class MailTemplateTest extends TestCase
     }
 
     /** @test */
+    public function should_set_bcc()
+    {
+        $this->mailTemplate->setBcc('test_bcc_name', 'test_bcc_email');
+
+        $varRecipient = null;
+        $recipients = $this->driver->message['bcc'];
+
+        foreach ($recipients as $recipient) {
+            if ($recipient['name'] === 'test_bcc_name') {
+                $varRecipient = $recipient;
+            }
+        }
+
+        $this->assertNotNull($varRecipient);
+        $this->assertTrue($varRecipient['name'] === 'test_bcc_name');
+        $this->assertTrue($varRecipient['email'] === 'test_bcc_email');
+        $this->assertTrue($varRecipient['type'] === 'bcc');
+    }
+
+    /** @test */
     public function should_set_language()
     {
         $this->mailTemplate->setLanguage('test');

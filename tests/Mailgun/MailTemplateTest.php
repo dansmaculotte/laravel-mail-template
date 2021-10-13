@@ -84,6 +84,13 @@ class MailTemplateTest extends TestCase
     }
 
     /** @test */
+    public function should_set_bcc()
+    {
+        $this->mailTemplate->setBcc('test_bcc_name', 'test_bcc_email');
+        $this->assertTrue($this->driver->message['bcc'] === "test_bcc_name <test_bcc_email>");
+    }
+
+    /** @test */
     public function should_set_template()
     {
         $this->mailTemplate->setTemplate('test');

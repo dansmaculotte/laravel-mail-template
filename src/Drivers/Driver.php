@@ -47,6 +47,13 @@ interface Driver
     public function setRecipient(string $name, string $email): self;
 
     /**
+     * @param string $name
+     * @param string $email
+     * @return Driver
+     */
+    public function setBcc(string $name, string $email): self;
+
+    /**
      * @param array $variables
      * @return Driver
      */

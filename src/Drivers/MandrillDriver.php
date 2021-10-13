@@ -100,6 +100,22 @@ class MandrillDriver implements Driver
     }
 
     /**
+     * @param string $name
+     * @param string $email
+     * @return Driver
+     */
+    public function setBcc(string $name, string $email): Driver
+    {
+        $this->message['bcc'][] = [
+            'name' => $name,
+            'email' => $email,
+            'type' => 'bcc',
+        ];
+
+        return $this;
+    }
+
+    /**
      * @param array $variables
      * @return Driver
      */

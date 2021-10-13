@@ -9,6 +9,7 @@ use SendinBlue\Client\Api\SMTPApi;
 use SendinBlue\Client\ApiException;
 use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\SendSmtpEmail;
+use SendinBlue\Client\Model\SendSmtpEmailBcc;
 use SendinBlue\Client\Model\SendSmtpEmailSender;
 use SendinBlue\Client\Model\SendSmtpEmailTo;
 
@@ -91,6 +92,21 @@ class SendinblueDriver implements Driver
     public function setRecipient(string $name, string $email): Driver
     {
         $this->message['to'] = [new SendSmtpEmailTo([
+            'name' => $name,
+            'email' => $email
+        ])];
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param string $email
+     * @return Driver
+     */
+    public function setBcc(string $name, string $email): Driver
+    {
+        $this->message['bcc'] = [new SendSmtpEmailBcc([
             'name' => $name,
             'email' => $email
         ])];

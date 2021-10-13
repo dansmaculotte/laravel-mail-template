@@ -110,6 +110,21 @@ class MailjetDriver implements Driver
     }
 
     /**
+     * @param string $name
+     * @param string $email
+     * @return Driver
+     */
+    public function setBcc(string $name, string $email): Driver
+    {
+        $this->message['Bcc'][] = [
+            'Name' => $name,
+            'Email' => $email,
+        ];
+
+        return $this;
+    }
+
+    /**
      * @param array $variables
      * @return Driver
      */

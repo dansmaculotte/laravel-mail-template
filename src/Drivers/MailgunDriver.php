@@ -95,6 +95,18 @@ class MailgunDriver implements Driver
     }
 
     /**
+     * @param string $name
+     * @param string $email
+     * @return Driver
+     */
+    public function setBcc(string $name, string $email): Driver
+    {
+        $this->message['bcc'] = "${name} <${email}>";
+
+        return $this;
+    }
+
+    /**
      * @param array $variables
      * @return Driver
      */

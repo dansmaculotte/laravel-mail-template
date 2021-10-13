@@ -139,7 +139,7 @@ class MailTemplateTest extends TestCase
         $response = Mockery::mock(ResponseInterface::class);
 
         $response->shouldReceive('getStatusCode')->andReturn(200);
-        $response->shouldReceive('getBody')->andReturn('{}');
+        $response->shouldReceive('getBody')->andReturn(new FakeBody);
 
         $this->client->shouldReceive('post')->andReturn(new Response($request, $response));
 
@@ -153,7 +153,7 @@ class MailTemplateTest extends TestCase
         $response = Mockery::mock(ResponseInterface::class);
 
         $response->shouldReceive('getStatusCode')->andReturn(400);
-        $response->shouldReceive('getBody')->andReturn('{}');
+        $response->shouldReceive('getBody')->andReturn(new FakeBody);
 
         $this->client
             ->shouldReceive('post')
@@ -202,7 +202,7 @@ class MailTemplateTest extends TestCase
         $request = Mockery::mock(Request::class);
         $response = Mockery::mock(ResponseInterface::class);
         $response->shouldReceive('getStatusCode')->andReturn(200);
-        $response->shouldReceive('getBody')->andReturn('{}');
+        $response->shouldReceive('getBody')->andReturn(new FakeBody);
 
         $client->shouldReceive('post')->once()->with(['send', ''], ['body' => [
             'Messages' => [
@@ -247,5 +247,32 @@ class MailTemplateTest extends TestCase
         } catch (InvalidConfiguration $e) {
             $this->assertEquals('debug_email in mailjet configuration must have "Name" and "Email" keys', $e->getMessage());
         }
+    }
+
+    /** @test */
+    public function should_set_bcc()
+    {
+        $this->mailTemplate->setBcc('test_bcc_name', 'test_bcc_email');
+
+        $varRecipient = null;
+        $recipients = $this->driver->message['Bcc'];
+
+        foreach ($recipients as $recipient) {
+            if ($recipient['Name'] === 'test_bcc_name') {
+                $varRecipient = $recipient;
+            }
+        }
+
+        $this->assertNotNull($varRecipient);
+        $this->assertTrue($varRecipient['Name'] === 'test_bcc_name');
+        $this->assertTrue($varRecipient['Email'] === 'test_bcc_email');
+    }
+}
+
+class FakeBody
+{
+    public function getContents(): string
+    {
+        return '{}';
     }
 }

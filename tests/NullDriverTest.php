@@ -22,6 +22,7 @@ class NullDriverTest extends TestCase
         $mailTemplate = new NullDriver();
         $this->assertNotNull($mailTemplate->setTemplate('welcome'));
         $this->assertNotNull($mailTemplate->setRecipient('Recipient', 'recipient@mail.com'));
+        $this->assertNotNull($mailTemplate->setBcc('Bcc', 'bcc@mail.com'));
         $this->assertNotNull($mailTemplate->send());
     }
 
