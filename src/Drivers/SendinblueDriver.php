@@ -5,7 +5,7 @@ namespace DansMaCulotte\MailTemplate\Drivers;
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use GuzzleHttp\Client;
-use SendinBlue\Client\Api\SMTPApi;
+use SendinBlue\Client\Api\TransactionalEmailsApi;
 use SendinBlue\Client\ApiException;
 use SendinBlue\Client\Configuration;
 use SendinBlue\Client\Model\SendSmtpEmail;
@@ -15,12 +15,9 @@ use SendinBlue\Client\Model\SendSmtpEmailTo;
 
 class SendinblueDriver implements Driver
 {
+    public TransactionalEmailsApi $client;
 
-    /** @var SMTPApi|null  */
-    public $client = null;
-
-    /** @var array */
-    public $message = [];
+    public array $message = [];
 
     /**
      * Driver constructor.
@@ -34,7 +31,7 @@ class SendinblueDriver implements Driver
         }
 
         $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', $config['key']);
-        $this->client = new SMTPApi(new Client(), $config, null);
+        $this->client = new TransactionalEmailsApi(new Client(), $config, null);
     }
 
     /**

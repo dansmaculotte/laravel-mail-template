@@ -4,37 +4,25 @@ namespace DansMaCulotte\MailTemplate\Drivers;
 
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
-use Mandrill;
-use Mandrill_Error;
+use Exception;
+use MailchimpTransactional\ApiClient;
 
-/**
- * Class MandrillDriver
- * @package DansMaCulotte\MailTemplate\Drivers
- */
-class MandrillDriver implements Driver
+class MailchimpDriver implements Driver
 {
-    /** @var Mandrill|null  */
-    public $client = null;
+    public ApiClient $client;
 
-    /** @var array */
-    public $body = [];
+    public array $body = [];
 
-    /** @var array */
-    public $message = [];
+    public array $message = [];
 
-    /**
-     * MandrillDriver constructor.
-     * @param $config
-     * @throws InvalidConfiguration
-     * @throws Mandrill_Error
-     */
-    public function __construct($config)
+    public function __construct(array $config)
     {
         if (!isset($config['secret'])) {
-            throw InvalidConfiguration::invalidCredential('mandrill', 'secret');
+            throw InvalidConfiguration::invalidCredential('mailchimp', 'secret');
         }
 
-        $this->client = new Mandrill($config['secret']);
+        $this->client = new ApiClient();
+        $this->client->setApiKey($config['secret']);
     }
 
     /**
@@ -160,8 +148,8 @@ class MandrillDriver implements Driver
                 [],
                 $this->message
             );
-        } catch (Mandrill_Error $exception) {
-            throw SendError::responseError('mandrill', 0, $exception);
+        } catch (Exception $exception) {
+            throw SendError::responseError('mailchimp', 0, $exception);
         }
 
         return $response;

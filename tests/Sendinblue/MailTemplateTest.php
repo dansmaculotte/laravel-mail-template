@@ -8,7 +8,7 @@ use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use DansMaCulotte\MailTemplate\MailTemplate;
 use DansMaCulotte\MailTemplate\Tests\TestCase;
 use Mockery;
-use SendinBlue\Client\Api\SMTPApi;
+use SendinBlue\Client\Api\TransactionalEmailsApi;
 use SendinBlue\Client\ApiException;
 use SendinBlue\Client\Model\CreateSmtpEmail;
 
@@ -25,7 +25,7 @@ class MailTemplateTest extends TestCase
 
     public function setUp(): void
     {
-        $this->client = Mockery::mock(SMTPApi::class);
+        $this->client = Mockery::mock(TransactionalEmailsApi::class);
 
         $this->driver = new SendinblueDriver([
             'key' => 'testApiKey',

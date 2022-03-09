@@ -3,9 +3,9 @@
 
 namespace DansMaCulotte\MailTemplate\Tests;
 
+use DansMaCulotte\MailTemplate\Drivers\MailchimpDriver;
 use DansMaCulotte\MailTemplate\Drivers\MailgunDriver;
 use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
-use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
 use DansMaCulotte\MailTemplate\Drivers\NullDriver;
 use DansMaCulotte\MailTemplate\Drivers\SendgridDriver;
 use DansMaCulotte\MailTemplate\Drivers\SendinblueDriver;
@@ -48,15 +48,15 @@ class MailTemplateFacadeTest extends TestCase
     }
 
     /** @test */
-    public function should_instantiate_facade_with_mandrill_driver()
+    public function should_instantiate_facade_with_mailchimp_driver()
     {
-        config()->set('mail-template.driver', 'mandrill');
-        config()->set('mail-template.mandrill.secret', 'mandrill');
+        config()->set('mail-template.driver', 'mailchimp');
+        config()->set('mail-template.mailchimp.secret', 'mailchimp');
 
         $mailTemplate = $this->app[MailTemplate::class];
 
         $this->assertInstanceOf(MailTemplate::class, $mailTemplate);
-        $this->assertInstanceOf(MandrillDriver::class, $mailTemplate->driver);
+        $this->assertInstanceOf(MailchimpDriver::class, $mailTemplate->driver);
     }
 
     /** @test */

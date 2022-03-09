@@ -12,6 +12,8 @@ use Mailgun\Exception\HttpClientException;
 use Mailgun\Mailgun;
 use Mailgun\Model\Message\SendResponse;
 use Mockery;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 class MailTemplateTest extends TestCase
 {
@@ -141,11 +143,8 @@ class MailTemplateTest extends TestCase
         $messages = Mockery::mock(Message::class);
         $this->client->shouldReceive('messages')->andReturn($messages);
 
-        $response = Mockery::mock(SendResponse::class);
+        $response =  SendResponse::create(['id' => 'testId', 'message' => 'testMessage']);
         $messages->shouldReceive('send')->andReturn($response);
-
-        $response->shouldReceive('getId')->andReturn('testId');
-        $response->shouldReceive('getMessage')->andReturn('testMessage');
 
         $return = $this->mailTemplate->send();
 
@@ -168,7 +167,14 @@ class MailTemplateTest extends TestCase
         $messages = Mockery::mock(Message::class);
         $this->client->shouldReceive('messages')->andReturn($messages);
 
-        $messages->shouldReceive('send')->andThrow(HttpClientException::class);
+        $responseMock = Mockery::mock(ResponseInterface::class);
+        $responseMock->shouldReceive('getStatusCode')->andReturn(500);
+        $responseMock->shouldReceive('getHeaderLine')->andReturn('foobar');
+        $responseBodyMock = Mockery::mock(StreamInterface::class);
+        $responseBodyMock->shouldReceive('__toString')->andReturn('Boum');
+        $responseMock->shouldReceive('getBody')->andReturn($responseBodyMock);
+
+        $messages->shouldReceive('send')->andThrow(new HttpClientException('foobar', 1234, $responseMock));
 
         $this->expectExceptionObject(SendError::responseError('mailgun'));
 

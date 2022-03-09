@@ -1,34 +1,31 @@
 <?php
 
 
-namespace DansMaCulotte\MailTemplate\Tests\Mandrill;
+namespace DansMaCulotte\MailTemplate\Tests\Mailchimp;
 
-use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
+use DansMaCulotte\MailTemplate\Drivers\MailchimpDriver;
 use DansMaCulotte\MailTemplate\Exceptions\InvalidConfiguration;
 use DansMaCulotte\MailTemplate\Exceptions\SendError;
 use DansMaCulotte\MailTemplate\MailTemplate;
-use Mandrill;
-use Mandrill_Error;
-use Mandrill_Messages;
+use Exception;
+use MailchimpTransactional\Api\MessageApi;
+use MailchimpTransactional\ApiClient;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class MailTemplateTest extends TestCase
 {
-    /** @var \DansMaCulotte\MailTemplate\Drivers\MandrillDriver */
-    protected $driver;
+    protected MailchimpDriver $driver;
 
-    /** @var Mockery\Mock */
-    protected $client;
+    protected ApiClient $client;
 
-    /** @var \DansMaCulotte\MailTemplate\MailTemplate */
-    protected $mailTemplate;
+    protected MailTemplate $mailTemplate;
 
     public function setUp(): void
     {
-        $this->client = Mockery::mock(Mandrill::class)->makePartial();
+        $this->client = Mockery::mock(ApiClient::class)->makePartial();
 
-        $this->driver = new MandrillDriver([
+        $this->driver = new MailchimpDriver([
             'key' => 'testApiKey',
             'secret' => 'testApiSecret',
         ]);
@@ -50,9 +47,9 @@ class MailTemplateTest extends TestCase
     /** @test */
     public function should_throw_error_with_secret()
     {
-        $this->expectExceptionObject(InvalidConfiguration::invalidCredential('mandrill', 'secret'));
+        $this->expectExceptionObject(InvalidConfiguration::invalidCredential('mailchimp', 'secret'));
 
-        $driver = new MandrillDriver([
+        $driver = new MailchimpDriver([
             'key' => 'test',
         ]);
     }
@@ -163,7 +160,7 @@ class MailTemplateTest extends TestCase
     {
         $this->mailTemplate->setTemplate('test_template');
 
-        $this->client->messages = Mockery::mock(Mandrill_Messages::class)
+        $this->client->messages = Mockery::mock(MessageApi::class)
             ->shouldReceive('sendTemplate')
             ->andReturn([])
             ->getMock();
@@ -176,12 +173,12 @@ class MailTemplateTest extends TestCase
     {
         $this->mailTemplate->setTemplate('test_template');
 
-        $this->client->messages = Mockery::mock(Mandrill_Messages::class)
+        $this->client->messages = Mockery::mock(MessageApi::class)
             ->shouldReceive('sendTemplate')
-            ->andThrow(Mandrill_Error::class)
+            ->andThrow(Exception::class)
             ->getMock();
 
-        $this->expectExceptionObject(SendError::responseError('mandrill'));
+        $this->expectExceptionObject(SendError::responseError('mailchimp'));
 
         $this->mailTemplate->send();
     }

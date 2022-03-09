@@ -10,7 +10,7 @@
 
 There are 5 drivers available:
 
-  - [Mandrill](https://mandrillapp.com/api/docs/)
+  - [Mailchimp](https://mailchimp.com/developer/transactional/api/)
   - [Mailjet](https://dev.mailjet.com/guides/#about-the-mailjet-api)
   - [Sendgrid](https://sendgrid.com/docs/api-reference/)
   - [Mailgun](https://documentation.mailgun.com/en/latest/api_reference.html) 
@@ -22,7 +22,7 @@ There is also and `log` and `null` driver for testing and debug purpose.
 
 ### Requirements
 
-- PHP 7.2
+- PHP 8.1
 
 You can install the package via composer:
 
@@ -46,10 +46,10 @@ Finally, install the email service package needed:
 composer require mailjet/mailjet-apiv3-php
 ```
 
-- Mandrill
+- Mailchimp
 
 ```bash
-composer require mandrill/mandrill
+composer require mailchimp/transactional
 ```
 
 - SendGrid

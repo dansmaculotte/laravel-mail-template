@@ -2,9 +2,9 @@
 
 namespace DansMaCulotte\MailTemplate;
 
+use DansMaCulotte\MailTemplate\Drivers\MailchimpDriver;
 use DansMaCulotte\MailTemplate\Drivers\MailgunDriver;
 use DansMaCulotte\MailTemplate\Drivers\MailjetDriver;
-use DansMaCulotte\MailTemplate\Drivers\MandrillDriver;
 use DansMaCulotte\MailTemplate\Drivers\NullDriver;
 use DansMaCulotte\MailTemplate\Drivers\SendgridDriver;
 use DansMaCulotte\MailTemplate\Drivers\SendinblueDriver;
@@ -40,8 +40,8 @@ class MailTemplateServiceProvider extends ServiceProvider
                 case 'mailjet':
                     $driver = new MailjetDriver(config('mail-template.mailjet'));
                     break;
-                case 'mandrill':
-                    $driver = new MandrillDriver(config('mail-template.mandrill'));
+                case 'mailchimp':
+                    $driver = new MailchimpDriver(config('mail-template.mailchimp'));
                     break;
                 case 'sendgrid':
                     $driver = new SendgridDriver(config('mail-template.sendgrid'));

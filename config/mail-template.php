@@ -7,7 +7,7 @@ return [
     | Mail Template Driver
     |--------------------------------------------------------------------------
     |
-    | Supported: "mailjet", "mandrill", "sendgrid, "mailgun", "log", null
+    | Supported: "mailjet", "mailchimp", "sendgrid, "mailgun", "log", null
     |
     */
     'driver' => env('MAIL_TEMPLATE_DRIVER', null),
@@ -22,8 +22,8 @@ return [
         // ],
     ],
 
-    'mandrill' => [
-        'secret' => env('MANDRILL_SECRET'),
+    'mailchimp' => [
+        'secret' => env('MAILCHIMP_SECRET'),
     ],
 
     'sendgrid' => [
