@@ -143,11 +143,11 @@ class MailchimpDriver implements Driver
         $response = [];
 
         try {
-            $response = $this->client->messages->sendTemplate(
-                $this->body['template'],
-                [],
-                $this->message
-            );
+            $response = $this->client->messages->sendTemplate([
+                'template_name'    => $this->body['template'],
+                'template_content' => [["name" => '', 'content' => '']],
+                'message'          => $this->message,
+            ]);
         } catch (Exception $exception) {
             throw SendError::responseError('mailchimp', 0, $exception);
         }
